@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Oemah Laundry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <style>
+    .success {
+      color: #01d28e;
+    }
+
+    .warning {
+      color: #e5d429;
+    }
+  </style>
+</head>
+
+<body>
+  <div data-role="page" id="page-one">
+    <div data-role="header">
+      <h1>Oemah Laundry</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <div class="center-wrapper">
+        <h2 class="center">Data Pemesanan Laundry</h2>
+      </div>
+
+      <ul data-role="listview" data-inset="true" data-filter="true">
+        <li><a href="#page-detail-pemesanan" id="detail-pemesanan" data-id="1" >
+            <h2>Naruto</h2>
+            <p><i>27-09-2019</i></p>
+            <p class="success"><i>Selesai</i></p>
+          </a></li>
+      </ul>
+
+      <!-- <a href="#page-two" class="ui-shadow ui-btn ui-corner-all">Go to Page Two</a>
+      <a href="#page-three" class="ui-shadow ui-btn ui-corner-all">Go to Page Three</a> -->
+    </div>
+  </div>
+  <div data-role="page" id="page-detail-pemesanan" data-theme="b">
+    <div data-role="header">
+      <h1>Oemah Laundry</h1>
+    </div>
+    <div role="main" class="ui-content">
+
+
+      <!-- <h2>Page Two</h2>
+      <a href="#page-one" class="ui-shadow ui-btn ui-corner-all">Go to Page One</a>
+      <a href="#page-three" class="ui-shadow ui-btn ui-corner-all">Go to Page Three</a> -->
+    </div>
+  </div>
+  <div data-role="page" id="page-three" data-theme="b">
+    <div data-role="header">
+      <h1>Oemah Laundry</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <h2>Page Three</h2>
+      <a href="#page-one" class="ui-shadow ui-btn ui-corner-all">Go to Page One</a>
+      <a href="#page-two" class="ui-shadow ui-btn ui-corner-all">Go to Page Two</a>
+    </div>
+  </div>
+  <script src="js/pemesanan.js"></script>
+  <!-- <script>Application.initApplication();</script> -->
+</body>
+
+</html>
