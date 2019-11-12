@@ -16,11 +16,27 @@
     .warning {
       color: #e5d429;
     }
+
+    .ui-table-columntoggle-btn {
+      display: none !important;
+    }
+
+    .center {
+      margin: 0 auto;
+    }
+
+    .center-wrapper {
+      text-align: center;
+    }
+
+    .center-wrapper * {
+      margin: 0 auto;
+    }
   </style>
 </head>
 
 <body>
-  <div data-role="page" id="page-one">
+  <div data-role="page" id="page-list-pemesanan">
     <div data-role="header">
       <h1>Oemah Laundry</h1>
     </div>
@@ -29,16 +45,26 @@
         <h2 class="center">Data Pemesanan Laundry</h2>
       </div>
 
-      <ul data-role="listview" data-inset="true" data-filter="true">
-        <li><a href="#page-detail-pemesanan" id="detail-pemesanan" data-id="1" >
-            <h2>Naruto</h2>
-            <p><i>27-09-2019</i></p>
-            <p class="success"><i>Selesai</i></p>
-          </a></li>
-      </ul>
-
-      <!-- <a href="#page-two" class="ui-shadow ui-btn ui-corner-all">Go to Page Two</a>
-      <a href="#page-three" class="ui-shadow ui-btn ui-corner-all">Go to Page Three</a> -->
+      <form action="#" method="get">
+        <div class="ui-field-contain">
+          <label for="nama-petugas" class="select">Nama Petugas :</label>
+          <select name="" id="select-custom-1" data-native-menu="false">
+            <option value="1">Naruto</option>            
+            <option value="1">Sasuke</option>            
+          </select>
+        </div>
+        <!-- <div class="ui-field-contain">
+          <label for="nama-petugas">Tipe Cucian:</label>
+          <select name="" id="select-custom-1 tipe-cucian" data-native-menu="false">
+            <option value="1">Cuci Kering</option>
+            <option value="1">Cuci Basah</option>
+          </select>
+        </div> -->
+        <label for="text-basic">:</label>
+        <input type="text" name="" id="text-basic" value="">
+      </form>
+      <!-- <ul data-role="listview" data-inset="true" data-filter="true" id="list-pemesanan">
+      </ul> -->
     </div>
   </div>
   <div data-role="page" id="page-detail-pemesanan" data-theme="b">
@@ -46,19 +72,21 @@
       <h1>Oemah Laundry</h1>
     </div>
     <div role="main" class="ui-content">
-
-
-      <!-- <h2>Page Two</h2>
-      <a href="#page-one" class="ui-shadow ui-btn ui-corner-all">Go to Page One</a>
-      <a href="#page-three" class="ui-shadow ui-btn ui-corner-all">Go to Page Three</a> -->
+      <div class="center-wrapper">
+        <h2 class="center">Detail Pemesanan</h2>
+      </div>
+      <div id="detail-pemesanan">
+      </div>
+      <a href="#page-list-pemesanan" class="ui-shadow ui-btn ui-corner-all">Kembali</a>
+      <a href="#page-update-pemesanan" class="ui-shadow ui-btn ui-corner-all">Update Pemesanan</a>
     </div>
   </div>
-  <div data-role="page" id="page-three" data-theme="b">
+  <div data-role="page" id="page-update-pemesanan" data-theme="b">
     <div data-role="header">
       <h1>Oemah Laundry</h1>
     </div>
     <div role="main" class="ui-content">
-      <h2>Page Three</h2>
+      <h2>Update Pemesanan</h2>
       <a href="#page-one" class="ui-shadow ui-btn ui-corner-all">Go to Page One</a>
       <a href="#page-two" class="ui-shadow ui-btn ui-corner-all">Go to Page Two</a>
     </div>
