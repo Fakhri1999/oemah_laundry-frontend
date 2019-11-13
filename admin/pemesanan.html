@@ -6,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
+  <link href="css/mobiscroll.jquery.min.css" rel="stylesheet" />
   <script src="js/jquery.js" type="text/javascript"></script>
   <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <script src="js/mobiscroll.jquery.min.js"></script>
   <style>
     .success {
       color: #01d28e;
@@ -46,22 +48,35 @@
       </div>
 
       <form action="#" method="get">
-        <div class="ui-field-contain">
-          <label for="nama-petugas" class="select">Nama Petugas :</label>
-          <select name="" id="select-custom-1" data-native-menu="false">
-            <option value="1">Naruto</option>            
-            <option value="1">Sasuke</option>            
-          </select>
-        </div>
-        <!-- <div class="ui-field-contain">
-          <label for="nama-petugas">Tipe Cucian:</label>
-          <select name="" id="select-custom-1 tipe-cucian" data-native-menu="false">
-            <option value="1">Cuci Kering</option>
-            <option value="1">Cuci Basah</option>
-          </select>
-        </div> -->
-        <label for="text-basic">:</label>
-        <input type="text" name="" id="text-basic" value="">
+        <label for="nama-petugas-tambah" class="select">Nama Petugas :</label>
+        <select name="" id="nama-petugas-tambah" class="nama-petugas-tambah" data-native-menu="false">
+          <option value="1">Naruto</option>
+          <option value="1">Sasuke</option>
+        </select>
+        <label for="nama-pelanggan-tambah">Nama Pelanggan :</label>
+        <select name="" id="nama-pelanggan-tambah" data-native-menu="false">
+          <option value="1">Boruto</option>
+          <option value="1">Sarada</option>
+        </select>
+        <label for="tipe-cucian-tambah">Tipe Cucian :</label>
+        <select name="" id="tipe-cucian-tambah" data-native-menu="false">
+          <option value="1">Cuci Kering</option>
+          <option value="1">Cuci Basah</option>
+        </select>
+        <label for="barang-cucian-tambah">Barang Cucian :</label>
+        <select name="" id="barang-cucian-tambah" data-native-menu="false">
+          <option value="1">Selimut</option>
+          <option value="1">Jaket</option>
+        </select>
+        <label for="berat-tambah">Berat :</label>
+        <input type="text" name="" id="berat-tambah" value="">
+        <label for="tanggal-masuk-tambah">Tanggal Masuk : </label>
+        <input type="date" name="" id="tanggal-masuk-tambah" value="">
+        <label for="tanggal-keluar-tambah">Tanggal Keluar :</label>
+        <input type="date" name="" id="tanggal-keluar-tambah" value="">
+        <input id="datetime" placeholder="Please Select...">
+        <label for="berat-tambah">Harga :</label>
+        <input type="text" name="" id="berat-tambah" value="">
       </form>
       <!-- <ul data-role="listview" data-inset="true" data-filter="true" id="list-pemesanan">
       </ul> -->

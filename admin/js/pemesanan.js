@@ -48,4 +48,6 @@ $(document).ready(function () {
     // console.log($('#detail-pemesanan'))
     $('#detail-pemesanan').append(append).trigger('create')
   })
+
+  $('#datetime').mobiscroll().datetime();
 })
