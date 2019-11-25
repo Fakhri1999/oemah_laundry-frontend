@@ -49,5 +49,5 @@ $(document).ready(function () {
     $('#detail-pemesanan').append(append).trigger('create')
   })
 
-  $('#datetime').mobiscroll().datetime();
+  // $('#datetime').mobiscroll().datetime();
 })

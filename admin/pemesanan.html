@@ -9,7 +9,7 @@
   <link href="css/mobiscroll.jquery.min.css" rel="stylesheet" />
   <script src="js/jquery.js" type="text/javascript"></script>
   <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
-  <script src="js/mobiscroll.jquery.min.js"></script>
+  <!-- <script src="js/mobiscroll.jquery.min.js"></script> -->
   <style>
     .success {
       color: #01d28e;
@@ -47,6 +47,61 @@
         <h2 class="center">Data Pemesanan Laundry</h2>
       </div>
 
+      <!-- <form action="#" method="get">
+        <label for="nama-petugas-tambah" class="select">Nama Petugas :</label>
+        <select name="" id="nama-petugas-tambah" class="nama-petugas-tambah" data-native-menu="false">
+          <option value="1">Naruto</option>
+          <option value="1">Sasuke</option>
+        </select>
+        <label for="nama-pelanggan-tambah">Nama Pelanggan :</label>
+        <select name="" id="nama-pelanggan-tambah" data-native-menu="false">
+          <option value="1">Boruto</option>
+          <option value="1">Sarada</option>
+        </select>
+        <label for="tipe-cucian-tambah">Tipe Cucian :</label>
+        <select name="" id="tipe-cucian-tambah" data-native-menu="false">
+          <option value="1">Cuci Kering</option>
+          <option value="1">Cuci Basah</option>
+        </select>
+        <label for="barang-cucian-tambah">Barang Cucian :</label>
+        <select name="" id="barang-cucian-tambah" data-native-menu="false">
+          <option value="1">Selimut</option>
+          <option value="1">Jaket</option>
+        </select>
+        <label for="berat-tambah">Berat :</label>
+        <input type="text" name="" id="berat-tambah" value="">
+        <label for="tanggal-masuk-tambah">Tanggal Masuk : </label>
+        <input type="date" name="" id="tanggal-masuk-tambah" value="">
+        <label for="tanggal-keluar-tambah">Tanggal Keluar :</label>
+        <input type="date" name="" id="tanggal-keluar-tambah" value="">
+        <input id="datetime" placeholder="Please Select...">
+        <label for="berat-tambah">Harga :</label>
+        <input type="text" name="" id="berat-tambah" value="">
+      </form> -->
+      <ul data-role="listview" data-inset="true" data-filter="true" id="list-pemesanan">
+      </ul>
+    </div>
+  </div>
+  <div data-role="page" id="page-detail-pemesanan" data-theme="b">
+    <div data-role="header">
+      <h1>Oemah Laundry</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <div class="center-wrapper">
+        <h2 class="center">Detail Pemesanan</h2>
+      </div>
+      <div id="detail-pemesanan">
+      </div>
+      <a href="#page-list-pemesanan" class="ui-shadow ui-btn ui-corner-all">Kembali</a>
+      <a href="#page-update-pemesanan" class="ui-shadow ui-btn ui-corner-all">Update Pemesanan</a>
+    </div>
+  </div>
+  <div data-role="page" id="page-update-pemesanan" data-theme="b">
+    <div data-role="header">
+      <h1>Oemah Laundry</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <h2>Update Pemesanan</h2>
       <form action="#" method="get">
         <label for="nama-petugas-tambah" class="select">Nama Petugas :</label>
         <select name="" id="nama-petugas-tambah" class="nama-petugas-tambah" data-native-menu="false">
@@ -78,30 +133,6 @@
         <label for="berat-tambah">Harga :</label>
         <input type="text" name="" id="berat-tambah" value="">
       </form>
-      <!-- <ul data-role="listview" data-inset="true" data-filter="true" id="list-pemesanan">
-      </ul> -->
-    </div>
-  </div>
-  <div data-role="page" id="page-detail-pemesanan" data-theme="b">
-    <div data-role="header">
-      <h1>Oemah Laundry</h1>
-    </div>
-    <div role="main" class="ui-content">
-      <div class="center-wrapper">
-        <h2 class="center">Detail Pemesanan</h2>
-      </div>
-      <div id="detail-pemesanan">
-      </div>
-      <a href="#page-list-pemesanan" class="ui-shadow ui-btn ui-corner-all">Kembali</a>
-      <a href="#page-update-pemesanan" class="ui-shadow ui-btn ui-corner-all">Update Pemesanan</a>
-    </div>
-  </div>
-  <div data-role="page" id="page-update-pemesanan" data-theme="b">
-    <div data-role="header">
-      <h1>Oemah Laundry</h1>
-    </div>
-    <div role="main" class="ui-content">
-      <h2>Update Pemesanan</h2>
       <a href="#page-one" class="ui-shadow ui-btn ui-corner-all">Go to Page One</a>
       <a href="#page-two" class="ui-shadow ui-btn ui-corner-all">Go to Page Two</a>
     </div>
