@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Oemah Laundry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
+  <script src="js/jquery-2.1.1.js" type="text/javascript"></script>
+  <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <style>
+    .center-wrapper {
+      text-align: center;
+    }
+
+    .center-wrapper * {
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <!--Halaman Utama Cucian-->
+  <div data-role="page" id="page-cucian">
+    <div data-role="header">
+      <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-icon-home ui-btn-icon-left"
+        onclick="window.location.replace('index.html')">Home</a>
+      <h1>Daftar Barang Cucian</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <ul id="list-barang" data-role="listview" data-inset="true" data-filter="true">
+      </ul>
+    </div>
+    <div style="bottom:0;" data-role="footer" data-position="fixed">
+      <div class="center-wrapper">
+        <a style="width: 90%;" href="#page-add-cucian" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
+          Barang</a>
+      </div>
+    </div>
+  </div>
+
+  <!--Halaman Tambah Cucian-->
+  <div data-role="page" id="page-add-cucian">
+    <div data-role="header">
+      <a href="#page-cucian" class="ui-btn ui-corner-all">Kembali</a>
+      <h1>Tambah Barang Cucian</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <p>Nama Barang : <input type="text" id="barang" value=""></p>
+      <p>Harga : <input type="number" id="harga" value=""></p>
+      <p>Lama : <input type="number" id="lama" value=""> hari</p>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!--Halaman Detail Cucian-->
+  <div data-role="page" id="page-detail-cucian" data-theme="b">
+    <div data-role="header">
+      <a href="#page-cucian" class="ui-btn ui-corner-all">Kembali</a>
+      <h1>Detail Barang Cucian</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <table data-role="table" class="ui-responsive" data-mode="reflow" id="table-detailCucian">
+        <thead>
+          <tr>
+            <th data-priority="1">ID Barang</th>
+            <th data-priority="2">Nama Barang</th>
+            <th data-priority="3">Harga</th>
+            <th data-priority="4">Lama</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+
+    <script src="./js/app.js"></script>
+    <script>
+      Application.initApplication();
+    </script>
+</body>
+
+</html>

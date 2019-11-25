@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Oemah Laundry</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="./css/jquery.mobile-1.4.5.css" />
-  <script src="js/jquery.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
+  <script src="js/jquery-2.1.1.js" type="text/javascript"></script>
   <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <style>
+    .center-wrapper {
+      text-align: center;
+    }
+
+    .center-wrapper * {
+      margin: 0 auto;
+    }
+  </style>
 </head>
+
 <body>
-  
-  <!-- <script src="./js/app.js"></script>
-  <script>Application.initApplication();</script> -->
+  <!-- Halaman Utama -->
+  <div data-role="page" id="page-home">
+    <div data-role="header">
+      <h1>Halo admin zzz!!</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <div class="center-wrapper">
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-icon-user ui-btn-icon-top"
+          onclick="window.location.replace('admin.html')">Petugas</a>
+        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-icon-shop ui-btn-icon-top"
+          onclick="window.location.replace('cucian.html')">Barang Cucian</a>
+        <a href="#page-pemesanan" class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-top">Pemesanan</a>
+      </div>
+      <div>
+        <a href="#page-pemesanan"></a>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
