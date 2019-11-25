@@ -28,7 +28,7 @@ $('#nav-logout').on('click', function (e) {
 
 //tambah pesanan
 $('#tambah-pesanan').on('click', function () {
-    alert('oioioi')
+    window.location.replace("./pesanan_tambah.html")
 })
 
 //--------------------------------- auth -------------------------------------------
@@ -56,6 +56,58 @@ $('#form-login').submit(function () {
 })
 
 //----------------------------------- pesanan ---------------------------------------
+localStorage.setItem('pesanan', 1)
+
+$('#btn-tambah-barang').on('click', function (event) {
+    event.preventDefault()
+    localStorage.setItem('pesanan', (parseInt(localStorage.getItem('pesanan')) + 1))
+
+    let container = document.getElementById('container')
+    let block_container = document.createElement('div')
+    block_container.className = 'ui-grid-a'
+    let block1 = document.createElement('div')
+    block1.className = 'ui-block-a'
+    let block2 = document.createElement('div')
+    block2.className = 'ui-block-b'
+    let input = document.createElement('input')
+    input.type = 'number'
+    input.id = 'jumlah-' + localStorage.getItem('pesanan')
+    input.style = 'text-align: center'
+    input.placeholder = "Jumlah"
+    let divInput = document.createElement('div')
+    divInput.className = 'ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset'
+    let native = document.createAttribute("data-native-menu")
+    native.value = 'false'
+    input.setAttributeNode(native)
+    let selectList = document.createElement('select')
+    selectList.id = 'data-' + localStorage.getItem('pesanan')
+    selectList.className = 'ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow'
+
+    let options_str = ''
+    let options = ['pakaian', 'selimut', 'boneka', 'seprei']
+    options.forEach(function (opt) {
+        options_str += '<option value="' + opt + '">' + opt + '</option>'
+    })
+
+    //joining all node togethaaa
+    selectList.innerHTML = options_str
+    block1.appendChild(selectList)
+    divInput.appendChild(input)
+    block2.appendChild(divInput)
+    block_container.appendChild(block1)
+    block_container.appendChild(block2)
+    container.appendChild(block_container)
+})
+
+$('#form-pesanan').submit(function (event) {
+    event.preventDefault()
+
+    for (let i = 1; i <= parseInt(localStorage.getItem('pesanan')); i++) {
+        let label = $('#data-' + i).val()
+        let jumlah = $('#jumlah-' + i).val()
+        console.log(`${label} = ${jumlah}`)
+    }
+})
 
 var pesanan = {
     load: function () {
@@ -100,3 +152,5 @@ var pesanan = {
         })
     }
 }
+
+//-----------------------------------------------------------------------------------
