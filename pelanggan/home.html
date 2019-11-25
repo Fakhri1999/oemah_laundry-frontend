@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Oemah Laundry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="./css/jquery.mobile-1.4.5.css" />
+  <link rel="stylesheet" type="text/css" href="./css/fontawesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <script src="./js/jquery.js" type="text/javascript"></script>
+  <script src="./js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <div data-role="page">
+    <div data-role="header" data-theme="b">
+      <h1>Oemah Laundry</h1>
+      <a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
+        class="ui-nodisc-icon"></a>
+    </div>
+    <div data-role="panel" data-display="overlay" id="left-panel" data-theme="b">
+      <img src="./images/logo_brand.png" width="100px" alt="">
+      <br>
+      <a id="nav-home" class="panel-link pointer">Pesananku</a><br>
+      <a id="nav-profile" class="panel-link pointer">Profile</a><br>
+      <a id="nav-logout" class="panel-link pointer">Log Out</a>
+      <a href="#" data-rel="close"
+        class="ui-btn ui-corner-all ui-shadow ui-mini ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-right">Close</a>
+    </div>
+    <div role="main" class="ui-content">
+      <ul id="list-pesanan" data-role="listview" data-inset="true" data-filter="true">
+      </ul>
+      <a id="tambah-pesanan" class="float pointer">
+        <i class="fa my-float" style="color: white;font-size: xx-large;">+</i>
+      </a>
+    </div>
+  </div>
+  <script src="./js/script.js"></script>
+  <script>
+    check.authCheck();
+  </script>
+</body>
+
+</html>
