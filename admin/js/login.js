@@ -21,7 +21,7 @@ var Application = {
                 if (res.status) {
 
                     // return
-                    window.location.replace(`admin.html?username=${res.data.username}&password=${res.data.password}&nama=${res.data.nama}`)
+                    window.location.replace(`admin.html?username=${res.data.username}&password=${res.data.password}&nama=${res.data.nama}$id=${res.data.id}`)
                 } else {
                     alert('Username / password salah')
                 }
