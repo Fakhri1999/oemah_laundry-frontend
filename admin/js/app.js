@@ -1,6 +1,25 @@
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+namaAdmin = getUrlParameter('nama')
+usernameAdmin = getUrlParameter('username')
+passwordAdmin = getUrlParameter('password')
 var Application = {
     initApplication: function () {
         $(window).load('pageinit', '#page-admin', function () {
+            $('#judul-nama-admin').html(namaAdmin)
+            // console.log(namaAdmin)
             Application.initShowAdm();
         })
         $(document).on('click', '#detail-admin', function () {
@@ -19,6 +38,9 @@ var Application = {
         })
         $(document).on('click', '#submit-cucian', function () {
             Application.initInsertCuci();
+        })
+        $(document).on('click', '#back-to-menu', function () {
+            $('#judul-nama-admin').html(namaAdmin)
         })
     },
 
@@ -71,8 +93,8 @@ var Application = {
                 "username": username,
                 "password": password,
                 "tipe": tipe,
-                "usernameAdmin": "ilham",
-                "passwordAdmin": "andri"
+                "usernameAdmin": usernameAdmin,
+                "passwordAdmin": passwordAdmin
             },
             success: function () {
                 Application.initShowAdm();
@@ -140,8 +162,8 @@ var Application = {
                 "barang": barang,
                 "harga": harga,
                 "lama": lama,
-                "usernameAdmin": "ilham",
-                "passwordAdmin": "andri"
+                "usernameAdmin": usernameAdmin,
+                "passwordAdmin": passwordAdmin
             },
             success: function () {
                 Application.initShowCuci();

@@ -19,159 +19,34 @@
 </head>
 
 <body>
-  <!-- Halaman Utama -->
-  <div data-role="page" id="page-home">
+  <!--Halaman Login Petugas-->
+  <div data-role="page" id="page-login">
     <div data-role="header">
-      <h1>Halo admin zzz!!</h1>
+      <!-- <a href="#page-home" class="ui-btn ui-corner-all ui-btn-inline ui-icon-home ui-btn-icon-left">Home</a> -->
+      <h1>Login Petugas</h1>
     </div>
     <div role="main" class="ui-content">
-      <div class="center-wrapper">
-        <a href="#page-admin" class="ui-btn ui-corner-all ui-btn-inline ui-icon-user ui-btn-icon-top">Petugas</a>
-        <a href="#page-cucian" class="ui-btn ui-corner-all ui-btn-inline ui-icon-shop ui-btn-icon-top">Barang Cucian</a>
-      </div>
-    </div>
-  </div>
+      <label for="text-basic">Username:</label>
+      <input type="text" name="text-basic" id="username" value="" placeholder="Masukkan username">
+      <label for="text-basic">Password:</label>
+      <input type="password" name="text-basic" id="password" value="" placeholder="Masukkan password">
+      <a style="background-color: #0071bc; color: #ffffff; " type="button" class="ui-btn ui-corner-all"
+        id="submit-login">Submit</a>
 
-  <!--Halaman Utama Admin-->
-  <div data-role="page" id="page-admin">
-    <div data-role="header">
-      <a href="#page-home" class="ui-btn ui-corner-all ui-btn-inline ui-icon-home ui-btn-icon-left">Home</a>
-      <h1>Daftar Admin</h1>
     </div>
-    <div role="main" class="ui-content">
-      <ul id="list-admin" data-role="listview" data-inset="true" data-filter="true">
-      </ul>
-    </div>
-    <div style="bottom:0;" data-role="footer" data-position="fixed">
+    <!-- <div style="bottom:0;" data-role="footer" data-position="fixed">
       <div class="center-wrapper">
         <a style="width: 90%;" href="#page-add-admin" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
           Petugas</a>
       </div>
-    </div>
+    </div> -->
   </div>
 
-  <!--Halaman Tambah Admin-->
-  <div data-role="page" id="page-add-admin">
-    <div data-role="header">
-      <a href="#page-admin" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-left">Kembali</a>
-      <h1>Tambah Petugas</h1>
-    </div>
-    <div role="main" class="ui-content">
-      <form id="form-add-petugas">
-        <p>Nama : <input type="text" id="nama_pet" value="" required></p>
-        <p>Username : <input type="text" id="username_pet" value="" required></p>
-        <p>Password : <input type="password" id="pass_pet" value="" autocomplete="off" required></p>
-        <p>Tipe :</p>
-        <select id="tipe-petugas" data-native-menu="false" required>
-          <option value="null" selected disabled>Tipe Petugas</option>
-          <option value="Petugas Admin">Petugas Admin</option>
-          <option value="Petugas Cuci">Petugas Cuci</option>
-        </select>
-        <div>
-          <a style="background-color: #0071bc; color: #ffffff; " type="button" class="ui-btn ui-corner-all"
-            id="submit-petugas">Submit</a>
-      </form>
-      <a id="popup-petugas" href="#p_pet" data-rel="popup" hidden data-transition="pop" data-position-to="window">Basic
-        Popup</a>
-      <div data-role="popup" id="p_pet">
-        <p>Data berhasil ditambahkan !!</p>
-        <p>Silahkan Tunggu Sebentar</p>
-      </div>
-    </div>
-  </div>
-  </div>
-  </div>
 
-  <!--Halaman Detail Admin-->
-  <div data-role="page" id="page-detail-admin" data-theme="b">
-    <div data-role="header">
-      <a href="#page-admin" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-left">Kembali</a>
-      <h1>Detail Admin</h1>
-    </div>
-    <div role="main" class="ui-content">
-      <table data-role="table" class="ui-responsive" data-mode="reflow" id="table-detailAdmin">
-        <thead>
-          <tr>
-            <th data-priority="1">ID Petugas</th>
-            <th data-priority="2">Nama</th>
-            <th data-priority="3">Username</th>
-            <th data-priority="4">Tipe</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!--Halaman Utama Cucian-->
-  <div data-role="page" id="page-cucian">
-    <div data-role="header">
-      <a href="#page-home" class="ui-btn ui-corner-all ui-btn-inline ui-icon-home ui-btn-icon-left">Home</a>
-      <h1>Barang Cucian</h1>
-    </div>
-    <div role="main" class="ui-content">
-      <ul id="list-cucian" data-role="listview" data-inset="true" data-filter="true">
-      </ul>
-    </div>
-    <div style="bottom:0;" data-role="footer" data-position="fixed">
-      <div class="center-wrapper">
-        <a style="width: 90%;" href="#page-add-cucian" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
-          Barang</a>
-      </div>
-    </div>
-  </div>
-
-  <!--Halaman Tambah Cucian-->
-  <div data-role="page" id="page-add-cucian">
-    <div data-role="header">
-      <a href="#page-cucian" class="ui-btn ui-corner-all">Kembali</a>
-      <h1>Tambah Barang</h1>
-    </div>
-    <div role="main" class="ui-content">
-      <p>Nama Barang : <input type="text" id="nama_barang" value="" required></p>
-      <p>Harga : <input type="number" id="harga_barang" value="" required></p>
-      <p>Lama : <input type="number" id="lama_barang" value="" style="width: 80%;" required> hari</p>
-      <div>
-        <button style="background-color: #0071bc; color: #ffffff; " type="submit" class="ui-btn ui-corner-all"
-          id="submit-cucian">Submit</button>
-        <a id="popup-cucian" href="#p_cuci" data-rel="popup" hidden data-transition="pop"
-          data-position-to="window">Basic
-          Popup</a>
-        <div data-role="popup" id="p_cuci">
-          <p>Data berhasil ditambahkan !!</p>
-          <p>Silahkan Tunggu Sebentar</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--Halaman Detail Cucian-->
-  <div data-role="page" id="page-detail-cucian" data-theme="b">
-    <div data-role="header">
-      <a href="#page-cucian" class="ui-btn ui-corner-all">Kembali</a>
-      <h1>Detail Barang Cucian</h1>
-    </div>
-    <div role="main" class="ui-content">
-      <table data-role="table" class="ui-responsive" data-mode="reflow" id="table-detailCucian">
-        <thead>
-          <tr>
-            <th data-priority="1">ID Barang</th>
-            <th data-priority="2">Nama Barang</th>
-            <th data-priority="3">Harga</th>
-            <th data-priority="4">Lama</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-
-
-    <script src="./js/app.js"></script>
-    <script>
-      Application.initApplication();
-    </script>
+  <script src="./js/login.js"></script>
+  <script>
+    Application.initApplication();
+  </script>
 </body>
 
 </html>
