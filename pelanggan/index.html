@@ -1,15 +1,55 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Oemah Laundry</title>
+  <title>Login</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="./css/jquery.mobile-1.4.5.css" />
-  <script src="js/jquery.js" type="text/javascript"></script>
-  <script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="./css/fontawesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <script src="./js/jquery.js" type="text/javascript"></script>
+  <script src="./js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
 </head>
+
 <body>
-  
-  <!-- <script src="./js/app.js"></script>
-  <script>Application.initApplication();</script> -->
+  <div data-role="page">
+    <div data-role="header" data-theme="b">
+      <h1>Login</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <form id="form-login">
+        <div class="ui-grid-solo" style="padding: 0px 20px">
+          <div class="ui-block-a">
+            <input style="text-align: center" type="text" name="username" id="username" value="" placeholder="Username">
+          </div>
+        </div>
+        <div class="ui-grid-solo" style="padding: 0px 20px">
+          <div class="ui-block-a">
+            <input style="text-align: center" type="password" name="pass" id="pass" value="" placeholder="Password">
+          </div>
+        </div>
+        <div class="ui-grid-solo" style="padding: 0px 20px">
+          <div class="ui-block-a">
+            <button class="ui-shadow ui-btn ui-corner-all" type="submit">Login</button>
+          </div>
+        </div>
+      </form>
+      <div class="ui-grid-solo">
+        <div class="ui-block-a">
+          <a href="#" id="link-register" class="center">Belum punya akun? Register</a>
+        </div>
+      </div>
+      <div id="notif"></div>
+    </div>
+  </div>
+  <script>
+    if (localStorage.getItem('status') != null) {
+      localStorage.setItem('status', 0);
+    }
+  </script>
+  <script src="./js/script.js"></script>
 </body>
+
 </html>

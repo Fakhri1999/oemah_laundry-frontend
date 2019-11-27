@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tambah pesanan</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" type="text/css" href="./css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script src="./js/jquery.js" type="text/javascript"></script>
+    <script src="./js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div data-role="page">
+        <div data-role="header" data-theme="b">
+            <h1>Tambah pesanan</h1>
+            <a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"
+                class="ui-nodisc-icon"></a>
+        </div>
+        <div data-role="panel" data-display="overlay" id="left-panel" data-theme="b">
+            <img src="./images/profile.png" width="100px" alt="">
+            <br>
+            <p id="nav-name"></p><br>
+            <a id="nav-home" class="panel-link pointer">Pesananku</a><br>
+            <a id="nav-profile" class="panel-link pointer">Profile</a><br>
+            <a id="nav-logout" class="panel-link pointer">Log Out</a>
+            <a href="#" data-rel="close"
+                class="ui-btn ui-corner-all ui-shadow ui-mini ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-right">Close</a>
+        </div>
+        <div role="main" class="ui-content">
+            <form id="form-pesanan">
+                <div id="container">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <select name="data-1" id="data-1" data-native-menu="false">
+                                <option value="pakaian">Pakaian</option>
+                                <option value="selimut">Selimut</option>
+                                <option value="boneka">Boneka</option>
+                                <option value="seprei">Seprei</option>
+                            </select>
+                        </div>
+                        <div class="ui-block-b">
+                            <input style="text-align: center" type="number" id="jumlah-1" placeholder="Jumlah"
+                                value="1">
+                        </div>
+                    </div>
+                </div>
+                <button id="btn-tambah-barang" data-icon="plus">tambah cucian</button>
+                <div class="ui-grid-solo">
+                    <div class="ui-block-a">
+                        <button class="ui-shadow ui-btn ui-corner-all" type="submit">Pesan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="./js/script.js"></script>
+    <script>
+        check.authCheck();
+    </script>
+</body>
+
+</html>
