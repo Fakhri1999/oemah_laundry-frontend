@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Profil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" type="text/css" href="./css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script src="./js/jquery.js" type="text/javascript"></script>
+    <script src="./js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div data-role="page">
+        <div data-role="header" data-theme="b">
+            <h1>Edit Profile</h1>
+            <a id="btn-back" data-icon="back" data-iconpos="notext" data-shadow="false" data-iconshadow="false"></a>
+        </div>
+        <div role="main" class="ui-content">
+            <form id="edit-profile">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <p class="center">Nama lengkap</p>
+                    </div>
+                    <div class="ui-block-b">
+                        <input style="text-align: center" type="text" id="nama" placeholder="Nama Lengkap">
+                    </div>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <p class="center">Username</p>
+                    </div>
+                    <div class="ui-block-b">
+                        <input style="text-align: center" type="text" id="username" placeholder="Username">
+                    </div>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <p class="center">Password</p>
+                    </div>
+                    <div class="ui-block-b">
+                        <input style="text-align: center" type="password" id="pass" placeholder="Password">
+                    </div>
+                </div>
+                <div class="ui-grid-solo">
+                    <button class="ui-shadow ui-btn ui-corner-all" type="submit">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+    <script>
+        check.authCheck();
+    </script>
+</body>
+
+</html>

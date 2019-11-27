@@ -27,3 +27,14 @@
   .pointer {
       cursor: pointer;
   }
+
+  .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 60%;
+  }
+
+  .red {
+      color: tomato;
+  }

@@ -19,8 +19,9 @@
                 class="ui-nodisc-icon"></a>
         </div>
         <div data-role="panel" data-display="overlay" id="left-panel" data-theme="b">
-            <img src="./images/logo_brand.png" width="100px" alt="">
+            <img src="./images/profile.png" width="100px" alt="">
             <br>
+            <p id="nav-name"></p><br>
             <a id="nav-home" class="panel-link pointer">Pesananku</a><br>
             <a id="nav-profile" class="panel-link pointer">Profile</a><br>
             <a id="nav-logout" class="panel-link pointer">Log Out</a>
@@ -28,14 +29,33 @@
                 class="ui-btn ui-corner-all ui-shadow ui-mini ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-right">Close</a>
         </div>
         <div role="main" class="ui-content">
-            <a href="#" class="float">
-                <i class="fa my-float" style="color: white;font-size: xx-large;">+</i>
-            </a>
-            <p>content</p>
+            <div class="ui-grid-solo">
+                <div class="ui-block-a">
+                    <img src="./images/profile.png" class="center" alt="">
+                </div>
+            </div>
+            <div class="ui-grid-solo">
+                <div class="ui-block-a">
+                    <h3 id="nama" class="center">Nama lengkap</h3>
+                </div>
+            </div>
+            <div class="ui-grid-solo">
+                <div class="ui-block-a">
+                    <h3 id="username" class="center">Username</h3>
+                </div>
+            </div>
+            <div class="ui-grid-solo">
+                <div class="ui-block-a">
+                    <button id="btn-edit-profile" class="ui-shadow ui-btn ui-corner-all">Edit Profile</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="./js/script.js"></script>
+    <script>
+        check.authCheck();
+    </script>
 </body>
 
 </html>

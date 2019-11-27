@@ -17,7 +17,7 @@
             <h1>Register</h1>
         </div>
         <div role="main" class="ui-content">
-            <form id="convertion">
+            <form id="form-register">
                 <div class="ui-grid-solo" style="padding: 0px 20px">
                     <div class="ui-block-a">
                         <input style="text-align: center" type="text" name="nama" id="nama" value=""
@@ -26,11 +26,11 @@
                 </div>
                 <div class="ui-grid-solo" style="padding: 0px 20px">
                     <div class="ui-block-a">
-                        <input style="text-align: center" type="text" name="email" id="email" value=""
-                            placeholder="Email">
+                        <input style="text-align: center" type="text" name="username" id="username" value=""
+                            placeholder="Username">
                     </div>
                 </div>
-                <div class="ui-grid-solo" style="padding: 0px 20px">
+                <div class="ui-grid-a" style="padding: 0px 20px">
                     <div class="ui-block-a">
                         <input style="text-align: center" type="password" name="pass" id="pass" value=""
                             placeholder="Password">
@@ -42,16 +42,24 @@
                 </div>
                 <div class="ui-grid-solo" style="padding: 0px 20px">
                     <div class="ui-block-a">
-                        <button class="ui-shadow ui-btn ui-corner-all" type="submit">Hitung</button>
+                        <button class="ui-shadow ui-btn ui-corner-all" type="submit">Register</button>
                     </div>
                 </div>
             </form>
+            <div class="ui-grid-solo">
+                <div class="ui-block-a">
+                    <a href="#" id="link-login" class="center">Sudah punya akun? Login</a>
+                </div>
+            </div>
+            <div id="notif"></div>
         </div>
     </div>
-    <script src="./js/script.js"></script>
     <script>
-        Application.initApplication();
+        if (localStorage.getItem('status') != null) {
+            localStorage.setItem('status', 0);
+        }
     </script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
