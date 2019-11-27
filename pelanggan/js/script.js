@@ -1,4 +1,4 @@
-const base_url = 'http://localhost/';
+const base_url = 'http://localhost/oemah_laundry/oemah_laundry-backend/';
 
 //-------------------------------- utility ----------------------------------------
 
@@ -64,18 +64,49 @@ $('#form-login').submit(function (event) {
     let h4 = document.createElement('h4')
     h4.className = 'center red'
 
+    let link = base_url + 'pelanggan/login'
+
+    //join
+    grid_a.appendChild(h4)
+    grid_solo.appendChild(grid_a)
+    container.appendChild(grid_solo)
+
     //rule
     if (username != '' && pass != '') {
-        console.log('tes')
         localStorage.setItem('status', 1)
         localStorage.setItem('username', username)
-        window.location.replace("./home.html")
+        $.ajax({
+            url: link,
+            type: 'POST',
+            'content-type': 'application/json; charset=utf-8',
+            data: {
+                'username': username,
+                'password': pass
+            },
+            beforeSend: function () {
+                $.mobile.loading('show', {
+                    text: 'Loading...',
+                    textVisible: true
+                })
+            },
+            success: function (data) {
+                window.location.replace("./home.html")
+            },
+            error: function (data) {
+                switch (data.status) {
+                    case 404:
+                        h4.innerHTML = 'Data pelanggan tidak ditemukan'
+                        break;
+                    case 401:
+                        h4.innerHTML = 'Password salah'
+                        break;
+                }
+            },
+            complete: function () {
+                $.mobile.loading('hide')
+            }
+        })
     } else {
-        //join
-        grid_a.appendChild(h4)
-        grid_solo.appendChild(grid_a)
-        container.appendChild(grid_solo)
-
         h4.innerHTML = 'Mohon lengkapi seluruh data yang tersedia'
     }
 })
@@ -109,14 +140,42 @@ $('#form-register').submit(function (event) {
         if (pass1.length >= 6) {
             if (pass1 == pass2) {
                 //password matches
-                $data = {
-                    'nama': name,
-                    'username': username,
-                    'password': pass1
-                }
                 localStorage.setItem('status', 1)
                 localStorage.setItem('username', username)
-                window.location.replace('./home.html')
+
+                let link = base_url + 'pelanggan'
+
+                $.ajax({
+                    url: link,
+                    type: 'POST',
+                    'content-type': 'application/json; charset=utf-8',
+                    data: {
+                        'nama': name,
+                        'username': username,
+                        'password': pass1,
+                        'telepon': 'belum ada',
+                        'alamat': 'belum ada'
+                    },
+                    beforeSend: function () {
+                        $.mobile.loading('show', {
+                            text: 'Loading...',
+                            textVisible: true
+                        })
+                    },
+                    success: function (data) {
+                        window.location.replace('./home.html')
+                    },
+                    error: function (data) {
+                        switch (data.status) {
+                            case 406:
+                                h4.innerHTML = 'Pendaftaran gagal'
+                                break;
+                        }
+                    },
+                    complete: function () {
+                        $.mobile.loading('hide')
+                    }
+                })
             } else {
                 h4.innerHTML = 'Kedua password tidak cocok'
             }
