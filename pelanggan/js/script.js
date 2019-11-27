@@ -264,37 +264,26 @@ $('#form-pesanan').submit(function (event) {
 //dummy
 var pesanan = {
     load: function () {
-        let link = base_url
+        let link = base_url + 'pesanan'
         $.ajax({
             url: link,
             type: 'get',
+            data: {
+                'id': 'a'
+            },
             beforeSend: function () {
                 $.mobile.loading('show', {
-                    text: 'Loading data...',
+                    text: 'Loading...',
                     textVisible: true
                 })
             },
             success: function (dataObject) {
-                $data = [{
-                        'id': 1,
-                        'barang_cucian': 'kaos'
-                    },
-                    {
-                        'id': 2,
-                        'barang_cucian': 'kaos aaa'
-                    },
-                    {
-                        'id': 3,
-                        'barang_cucian': 'kaos'
-                    },
-                    {
-                        'id': 4,
-                        'barang_cucian': 'kaos aaa'
+                dataObject.forEach(element => {
+                    if (element.id_pelanggan) {
+                        
                     }
-                ]
-                data.forEach(element => {
-                    let data = `<li><a href="#detail-pesanan?id=${element.id}" target="_self" id="detail-pesanan" data-psn="${element.id}"><h2>${element.barang_cucian}</h2></a></li>`
-                    $('#list-pesanan').append(data)
+                    let list = `<li><a href="#page-two?id=${element.id_pemesanan}" target="_self" id="detail-psn" data-psn="${element.id_pemesanan}"><h4>Pesanan tanggal ${element.tanggal_masuk}</h4></a></li>`
+                    $('#list-pesanan').append(list)
                 });
 
                 $('#list-pesanan').listview('refresh')
@@ -303,14 +292,75 @@ var pesanan = {
                 $.mobile.loading('hide')
             }
         })
-    }
+    },
+
 }
 
 //------------------------------------ propil --------------------------------------
 
 let profile = {
     init: function () {
-        //setup profile
+        let container = document.getElementById('profile-container')
+        container.innerHTML = ''
+
+        let link = base_url + 'pelanggan'
+        $.ajax({
+            url: link,
+            type: 'GET',
+            'content-type': 'application/json; charset=utf-8',
+            data: {
+                'id': localStorage.getItem('username'),
+            },
+            beforeSend: function () {
+                $.mobile.loading('show', {
+                    text: 'Loading...',
+                    textVisible: true
+                })
+            },
+            success: function (data) {
+                localStorage.setItem('__userdata', JSON.stringify(data.data))
+                for (let i = 1; i < Object.keys(data.data).length; i++) {
+                    if (Object.keys(data.data)[i] != 'password') {
+                        let grid_solo = document.createElement('div')
+                        grid_solo.className = 'ui-grid-solo'
+                        let grid_a = document.createElement('div')
+                        grid_a.className = 'ui-grid-a'
+                        let h4 = document.createElement('h4')
+                        h4.className = 'center'
+
+                        //join
+                        grid_a.appendChild(h4)
+                        grid_solo.appendChild(grid_a)
+                        container.appendChild(grid_solo)
+                        h4.innerHTML = `${Object.keys(data.data)[i]} : ${Object.values(data.data)[i]}`
+                    }
+                }
+            },
+            error: function (data) {
+                switch (data.status) {
+                    case 404:
+                        console.log('data tidak ditemukan')
+                        break;
+                }
+            },
+            complete: function () {
+                $.mobile.loading('hide')
+            }
+        })
+    }
+}
+
+let editProfile = {
+    init: function () {
+        let userdata = JSON.parse(localStorage.getItem('__userdata'))
+        $('input#p_nama').val(userdata.nama)
+        $('input#p_username').val(userdata.username)
+        if (userdata.telepon != 'belum ada') {
+            $('input#p_telepon').val(userdata.telepon)
+        }
+        if (userdata.alamat != 'belum ada') {
+            $('input#p_alamat').val(userdata.alamat)
+        }
     }
 }
 
@@ -322,11 +372,44 @@ $('#btn-edit-profile').on('click', function (event) {
 
 //update profil data
 $('#edit-profile').submit(function (event) {
+    // $('#btn-update-profile').on('click', function (event) {
     event.preventDefault()
-    let nama = $('input#nama').val()
-    let username = $('input#username').val()
-    let password = $('input#pass').val()
-    window.location.replace('./profile.html')
+
+    let id = localStorage.getItem('id_profile')
+    let nama = $('#p_nama').val()
+    let username = $('#p_username').val()
+    let telepon = $('#p_telepon').val()
+    let alamat = $('#p_alamat').val()
+    let password = $('#p_pass').val()
+
+    let link = base_url + 'pelanggan'
+
+    //sek error
+    $.ajax({
+        url: link,
+        type: 'put',
+        data: {
+            'id': id,
+            'nama': nama,
+            'username': username,
+            'password': password,
+            'telepon': telepon,
+            'alamat': alamat
+        },
+        beforeSend: function () {
+            $.mobile.loading('show', {
+                text: 'Loading...',
+                textVisible: true
+            })
+        },
+        success: function (data) {
+            console.log(data.status)
+            window.location.replace('./profile.html')
+        },
+        complete: function () {
+            $.mobile.loading('hide')
+        }
+    })
 })
 
 //----------------------------------------------------------------------------------

@@ -3,6 +3,8 @@
 
 <head>
     <title>Profil</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="./css/jquery.mobile-1.4.5.css" />
     <link rel="stylesheet" type="text/css" href="./css/fontawesome.min.css">
@@ -34,16 +36,7 @@
                     <img src="./images/profile.png" class="center" alt="">
                 </div>
             </div>
-            <div class="ui-grid-solo">
-                <div class="ui-block-a">
-                    <h3 id="nama" class="center">Nama lengkap</h3>
-                </div>
-            </div>
-            <div class="ui-grid-solo">
-                <div class="ui-block-a">
-                    <h3 id="username" class="center">Username</h3>
-                </div>
-            </div>
+            <div id="profile-container"></div>
             <div class="ui-grid-solo">
                 <div class="ui-block-a">
                     <button id="btn-edit-profile" class="ui-shadow ui-btn ui-corner-all">Edit Profile</button>
@@ -55,6 +48,7 @@
     <script src="./js/script.js"></script>
     <script>
         check.authCheck();
+        profile.init();
     </script>
 </body>
 
