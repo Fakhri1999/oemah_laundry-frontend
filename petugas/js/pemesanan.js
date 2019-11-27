@@ -17,17 +17,16 @@ function getPemesanan(){
       dataPemesanan = dataObject.data;
       var append = '';
       dataPemesanan.forEach(e => {
-        // console.log(e)
-        // return
+        console.log(e);
         let tes = Object.keys(e).map((val)=>e[val]).join(';')
-        // console.log(tes)
-        // return
-        append += `<li><a href="#page-two" id="pemesanan" data-id="${e.id_pemesanan}">
+        append += `<li><a href="#page-two" id="pemesanan" data-id="${e.id_pemesanan}" data-lengkap="${btoa(tes)}">
         <input type="hidden" value="${btoa(tes)}" id="lengkap">
         <h2>${e.nama_pelanggan.toProperCase()}</h2>
         <p><i>${e.tanggal_masuk}</i></p>`
         if (e.status == "Selesai") {
           append += `<p class="success italic">Selesai</p></a></li>`
+        } else if(e.status == "Belum Diproses"){
+          append += `<p class="danger italic">Belum Diproes</p></a></li>`
         } else {
           append += `<p class="warning italic">${e.status}</p></a></li>`
         }
@@ -39,21 +38,20 @@ function getPemesanan(){
 }
 
 $(document).ready(function(){
-getPemesanan()
+  getPemesanan();
 });
 
 $(document).on('click', '#pemesanan', function(){
+  dataPemesanan = atob($(this).data('lengkap')).split(';');
   $.ajax({
-    url: `http://localhost/oemahlaundry/api/rincian`,
+    url: 'http://localhost/oemahlaundry/api/rincian',
     type: 'get',
     data: {
       'id': $(this).data('id')
     },
     success: function(dataObject){
-      dataObject = dataObject.data
-      console.log(dataObject);
-      dataPemesanan = atob($('#lengkap').val()).split(';')
-      // console.log(dataPemesanan)
+      dataObject = dataObject.data;
+      console.log(dataPemesanan);
       // return
       $('#detail-pemesanan').empty();
       var append = `<p><b>Nama Pelanggan : </b>${dataPemesanan[1].toProperCase()}</p>
@@ -64,7 +62,7 @@ $(document).on('click', '#pemesanan', function(){
       <p><b>Status : </b>${dataPemesanan[6]}</p>`
       append += `<div style="width:100%"><table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-stroke ui-body-d"><thead><tr>
       <th>No</th><th>Barang</th><th>Jumlah</th><th>Harga</th><tr></thead><tbody>`
-      let i = 1
+      let i = 1;
       dataObject.forEach(e => {
         append += `<tr>
         <td>${i++}</td>
@@ -74,8 +72,12 @@ $(document).on('click', '#pemesanan', function(){
         </tr>`
       })
       append+=`</tbody></table></div>`
-      if (dataPemesanan[6] != "Selesai") {
+      if (dataPemesanan[6] == "Sedang Diproses") {
         append += `<button  id="btn-selesai" data-id="${dataPemesanan[0]}" class="ui-btn ui-corner-all">Selesaikan Laundry</button>`
+      //diubah ke default
+      } else if(dataPemesanan[2] == ''){
+        //nama data petugasnya pake default
+        append += `<button  id="btn-ambil" data-id="${dataPemesanan[0]}" data-petugas="" class="ui-btn ui-corner-all">Ambil Orderan Laundry</button>`
       }
       $('#detail-pemesanan').append(append);
     }
@@ -92,11 +94,33 @@ $(document).on('click', '#btn-selesai', function(){
       'status': 'Selesai'
     },
     success:function(){
-      getPemesanan()
+      getPemesanan();
       window.location.replace('#page-one');
     },
     error: function(){
       console.log(temp);
+    }
+  });
+});
+
+$(document).on('click', '#btn-ambil', function(){
+  var temp = $(this).data('id');
+  //ini harus diubah ke id petugas nya
+  var temp2 = $(this).data('petugas');
+  $.ajax({
+    url: 'http://localhost/oemahlaundry/api/pemesanan',
+    type: 'put',
+    data: {
+      'id': temp,
+      'status': 'Sedang Diproses',
+      'id_petugas': temp2
+    },
+    success:function(){
+      getPemesanan();
+      window.location.replace('#page-one');
+    },
+    error: function(){
+      console.log(temp2);
     }
   });
 });
