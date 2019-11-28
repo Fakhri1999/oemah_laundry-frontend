@@ -262,16 +262,25 @@ $('#form-pesanan').submit(function (event) {
             data[label] = jumlah
         }
     }
-    console.log(data)
+
+    let today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
 
     let link = base_url + 'pelanggan/pesanan'
-
     $.ajax({
         url: link,
         type: 'POST',
         'content-type': 'application/json; charset=utf-8',
         data: {
-            'data': data
+            'id_pelanggan': JSON.parse(localStorage.getItem('__userdata')).id_pelanggan,
+            'Pakaian': data.pakaian,
+            'Boneka': data.boneka,
+            'Selimut': data.selimut,
+            'Seprei': data.seprei,
+            'tanggal_masuk': today,
         },
         beforeSend: function () {
             $.mobile.loading('show', {
