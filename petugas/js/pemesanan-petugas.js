@@ -6,7 +6,7 @@ String.prototype.toProperCase = function () {
 
 function getPemesanan(){
   $.ajax({
-    url: 'http://localhost/oemahlaundry/api/pemesanan',
+    url: 'http://localhost/oemah_laundry-backend/api/pemesanan',
     type: 'get',
     data: {
       //ini harusnya ngambil dari data setelah login
@@ -43,8 +43,9 @@ $(document).ready(function(){
 
 $(document).on('click', '#pemesanan', function(){
   dataPemesanan = atob($(this).data('lengkap')).split(';');
+  // console.log(dataPemesanan)
   $.ajax({
-    url: 'http://localhost/oemahlaundry/api/rincian',
+    url: 'http://localhost/oemah_laundry-backend/api/Rincian',
     type: 'get',
     data: {
       'id': $(this).data('id')
@@ -77,7 +78,7 @@ $(document).on('click', '#pemesanan', function(){
       //diubah ke default
       } else if(dataPemesanan[2] == ''){
         //nama data petugasnya pake default
-        append += `<button  id="btn-ambil" data-id="${dataPemesanan[0]}" data-petugas="" class="ui-btn ui-corner-all">Ambil Orderan Laundry</button>`
+        append += `<button  id="btn-ambil" data-id="${dataPemesanan[0]}" data-petugas="1" class="ui-btn ui-corner-all">Ambil Orderan Laundry</button>`
       }
       $('#detail-pemesanan').append(append);
     }
@@ -87,7 +88,7 @@ $(document).on('click', '#pemesanan', function(){
 $(document).on('click', '#btn-selesai', function(){
   var temp = $(this).data('id');
   $.ajax({
-    url: 'http://localhost/oemahlaundry/api/pemesanan',
+    url: 'http://localhost/oemah_laundry-backend/api/pemesanan',
     type: 'put',
     data: {
       'id': temp,
@@ -103,13 +104,15 @@ $(document).on('click', '#btn-selesai', function(){
   });
 });
 
-$(document).on('click', '#btn-ambil', function(){
+$(document).on('click', '#btn-ambil', function(event){
+  event.preventDefault()
   var temp = $(this).data('id');
   //ini harus diubah ke id petugas nya
   var temp2 = $(this).data('petugas');
   $.ajax({
-    url: 'http://localhost/oemahlaundry/api/pemesanan',
+    url: 'http://localhost/oemah_laundry-backend/api/pemesanan',
     type: 'put',
+    "content-type": "application/json; charset=utf-8",
     data: {
       'id': temp,
       'status': 'Sedang Diproses',
