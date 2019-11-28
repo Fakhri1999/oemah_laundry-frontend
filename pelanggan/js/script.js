@@ -24,11 +24,14 @@ $('#nav-profile').on('click', function (e) {
 })
 $('#nav-logout').on('click', function (e) {
     e.preventDefault()
-    localStorage.setItem('status', 0)
+    localStorage.clear()
     window.location.replace("./index.html")
 })
 $('#btn-back').on('click', function (event) {
     window.location.replace("./profile.html")
+})
+$('#btn-detail-back').on('click', function (event) {
+    window.location.replace("./home.html")
 })
 
 //tambah pesanan
@@ -75,6 +78,7 @@ $('#form-login').submit(function (event) {
     if (username != '' && pass != '') {
         localStorage.setItem('status', 1)
         localStorage.setItem('username', username)
+        user.init();
         $.ajax({
             url: link,
             type: 'POST',
@@ -259,17 +263,41 @@ $('#form-pesanan').submit(function (event) {
         }
     }
     console.log(data)
+
+    let link = base_url + 'pelanggan/pesanan'
+
+    $.ajax({
+        url: link,
+        type: 'POST',
+        'content-type': 'application/json; charset=utf-8',
+        data: {
+            'data': data
+        },
+        beforeSend: function () {
+            $.mobile.loading('show', {
+                text: 'Loading...',
+                textVisible: true
+            })
+        },
+        success: function (data) {
+            window.location.replace("./home.html")
+        },
+        complete: function () {
+            $.mobile.loading('hide')
+        }
+    })
 })
 
-//dummy
+//load pesanan
 var pesanan = {
     load: function () {
-        let link = base_url + 'pesanan'
+        let link = base_url + 'pelanggan/pesanan'
+        let userdata = JSON.parse(localStorage.getItem('__userdata'))
         $.ajax({
             url: link,
             type: 'get',
             data: {
-                'id': 'a'
+                'id': userdata.id_pelanggan
             },
             beforeSend: function () {
                 $.mobile.loading('show', {
@@ -278,14 +306,16 @@ var pesanan = {
                 })
             },
             success: function (dataObject) {
-                dataObject.forEach(element => {
-                    if (element.id_pelanggan) {
-                        
-                    }
-                    let list = `<li><a href="#page-two?id=${element.id_pemesanan}" target="_self" id="detail-psn" data-psn="${element.id_pemesanan}"><h4>Pesanan tanggal ${element.tanggal_masuk}</h4></a></li>`
+                dataObject.data.forEach(element => {
+                    let list = `<li><a href="#page-two" id="pesanan-detail" data-id="${element.id_pemesanan}"><h4>Pesanan tanggal ${element.tanggal_masuk}</h4></a></li>`
                     $('#list-pesanan').append(list)
                 });
 
+                $('#list-pesanan').listview('refresh')
+            },
+            error: function () {
+                let list = `<li><p>data pesanan tidak ditemukan</p></li>`
+                $('#list-pesanan').append(list)
                 $('#list-pesanan').listview('refresh')
             },
             complete: function () {
@@ -293,10 +323,94 @@ var pesanan = {
             }
         })
     },
-
 }
 
+$(document).on('click', '#pesanan-detail', function () {
+    let link = base_url + 'pelanggan/detail'
+
+    let container = document.getElementById('detail-pesanan')
+
+    $.ajax({
+        url: link,
+        type: 'get',
+        data: {
+            'id': $(this).data('id')
+        },
+        success: function (data) {
+            $('#pemesanan-detail').empty();
+            data = data.data
+
+            let div = document.createElement('div')
+            div.className = 'ui-btn ui-corner-all ui-shadow'
+            let masuk = document.createElement('p')
+            masuk.innerHTML = `Tanggal masuk : ${data[0].tanggal_masuk}`
+            let keluar = document.createElement('p')
+            keluar.innerHTML = `Tanggal keluar : ${data[0].tanggal_keluar}`
+
+            div.appendChild(masuk)
+            div.appendChild(keluar)
+
+            container.appendChild(div)
+
+            data.forEach(function (item) {
+                console.log(item)
+                // component
+                let div = document.createElement('div')
+                div.className = 'ui-btn ui-corner-all ui-shadow'
+                let nama = document.createElement('p')
+                nama.innerHTML = `Nama barang : ${item.nama}`
+                let jumlah = document.createElement('p')
+                jumlah.innerHTML = `Jumlah : ${item.jumlah}`
+                let harga = document.createElement('p')
+                harga.innerHTML = `Harga : ${item.harga}`
+                let status = document.createElement('p')
+                status.innerHTML = `Status cucian : ${item.status}`
+
+
+                div.appendChild(nama)
+                div.appendChild(jumlah)
+                div.appendChild(harga)
+                div.appendChild(status)
+
+                container.appendChild(div)
+            })
+        }
+    });
+});
+
 //------------------------------------ propil --------------------------------------
+let user = {
+    init: function () {
+        let link = base_url + 'pelanggan'
+        $.ajax({
+            url: link,
+            type: 'GET',
+            'content-type': 'application/json; charset=utf-8',
+            data: {
+                'id': localStorage.getItem('username'),
+            },
+            beforeSend: function () {
+                $.mobile.loading('show', {
+                    text: 'Loading...',
+                    textVisible: true
+                })
+            },
+            success: function (data) {
+                localStorage.setItem('__userdata', JSON.stringify(data.data))
+            },
+            error: function (data) {
+                switch (data.status) {
+                    case 404:
+                        console.log('data tidak ditemukan')
+                        break;
+                }
+            },
+            complete: function () {
+                $.mobile.loading('hide')
+            }
+        })
+    }
+}
 
 let profile = {
     init: function () {
@@ -318,8 +432,8 @@ let profile = {
                 })
             },
             success: function (data) {
-                localStorage.setItem('__userdata', JSON.stringify(data.data))
                 for (let i = 1; i < Object.keys(data.data).length; i++) {
+                    localStorage.setItem('__userdata', JSON.stringify(data.data))
                     if (Object.keys(data.data)[i] != 'password') {
                         let grid_solo = document.createElement('div')
                         grid_solo.className = 'ui-grid-solo'
@@ -375,13 +489,20 @@ $('#edit-profile').submit(function (event) {
     // $('#btn-update-profile').on('click', function (event) {
     event.preventDefault()
 
-    let id = localStorage.getItem('id_profile')
+    let id = JSON.parse(localStorage.getItem('__userdata')).id_pelanggan
     let nama = $('#p_nama').val()
     let username = $('#p_username').val()
     let telepon = $('#p_telepon').val()
     let alamat = $('#p_alamat').val()
     let password = $('#p_pass').val()
-
+    let data = {
+        'id_pelanggan': id,
+        'nama': nama,
+        'username': username,
+        'password': password,
+        'telepon': telepon,
+        'alamat': alamat
+    }
     let link = base_url + 'pelanggan'
 
     //sek error
@@ -402,8 +523,8 @@ $('#edit-profile').submit(function (event) {
                 textVisible: true
             })
         },
-        success: function (data) {
-            console.log(data.status)
+        success: function () {
+            localStorage.setItem('__userdata', JSON.stringify(data))
             window.location.replace('./profile.html')
         },
         complete: function () {
