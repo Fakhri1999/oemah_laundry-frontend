@@ -1,4 +1,5 @@
 const base_url = 'https://oemah-laundry.herokuapp.com/';
+// const base_url = 'http://localhost/OemahLaundry-Backend/';
 
 //-------------------------------- utility ----------------------------------------
 
@@ -208,9 +209,9 @@ localStorage.setItem('pesanan', 1)
 $('#btn-tambah-barang').on('click', function (event) {
     event.preventDefault()
     localStorage.setItem('pesanan', (parseInt(localStorage.getItem('pesanan')) + 1))
-    
+
     // link = base_url + 'BarangCucian'
-    
+
     // $.ajax({
     //     url: link,
     //     type:'get',
@@ -301,7 +302,11 @@ $('#form-pesanan').submit(function (event) {
             })
         },
         success: function (data) {
+            console.log(data)
             window.location.replace("./home.html")
+        },
+        error: function (data) {
+            console.log(data)
         },
         complete: function () {
             $.mobile.loading('hide')
