@@ -50,7 +50,7 @@ var Application = {
 
     initShowAdm: function () {
         $.ajax({
-            url: 'http://localhost/OemahLaundry-Backend/Petugas',
+            url: 'http://localhost/oemah_laundry-backend/Petugas',
             type: 'get',
             success: function (res) {
                 var dataObject = res.data;
@@ -90,7 +90,7 @@ var Application = {
         var password = $('#pass_pet').val();
         var tipe = $('#tipe-petugas :selected').val();
         $.ajax({
-            url: 'http://localhost/OemahLaundry-Backend/Petugas',
+            url: 'http://localhost/oemah_laundry-backend/Petugas',
             type: 'post',
             data: {
                 "nama": nama,
@@ -121,12 +121,12 @@ var Application = {
 
     initShowCuci: function () {
         $.ajax({
-            url: 'http://localhost/OemahLaundry-Backend/BarangCucian',
+            url: 'http://localhost/oemah_laundry-backend/BarangCucian',
             type: 'get',
             success: function (res) {
                 var dataObject = res.data;
                 var appendList = '';
-                $("#list-barang").html('')
+                $("#list-cucian").html('')
                 dataObject.forEach(dataObject => {
                     let datacuci = Object.keys(dataObject).map((val) => dataObject[val]).join(';')
                     appendList += `<li><a href="#page-detail-cucian?id=${dataObject.id}" target="_self" id="detail-cucian" data-id="${dataObject.id}" data-temp="${datacuci}">
@@ -160,7 +160,7 @@ var Application = {
         var harga = $('#harga_barang').val();
         var lama = $('#lama_barang').val();
         $.ajax({
-            url: 'http://localhost/OemahLaundry-Backend/BarangCucian',
+            url: 'http://localhost/oemah_laundry-backend/BarangCucian',
             type: 'post',
             data: {
                 "barang": barang,
@@ -177,6 +177,7 @@ var Application = {
                 }, 3000);
                 setTimeout(function () {
                     window.location.replace("#page-cucian");
+                    Application.initShowCuci()
                 }, 3500);
                 $('#nama_barang').val('');
                 $('#harga_barang').val('');
