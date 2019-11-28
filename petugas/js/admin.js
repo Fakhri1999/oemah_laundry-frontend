@@ -15,6 +15,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 namaAdmin = getUrlParameter('nama')
 usernameAdmin = getUrlParameter('username')
 passwordAdmin = getUrlParameter('password')
+idAdmin = getUrlParameter('id')
 var Application = {
     initApplication: function () {
         $(window).load('pageinit', '#page-admin', function () {
@@ -41,6 +42,9 @@ var Application = {
         })
         $(document).on('click', '#back-to-menu', function () {
             $('#judul-nama-admin').html(namaAdmin)
+        })
+        $(document).on('click', '#keluar', function () {
+            window.location.replace('index.html')
         })
     },
 

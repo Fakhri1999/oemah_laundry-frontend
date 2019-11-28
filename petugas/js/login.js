@@ -16,11 +16,17 @@ var Application = {
                 'username': $('#username').val(),
                 'password': $('#password').val()
             },
+            beforeSend:function(){
+                console.log($('#username').val())
+            },
             success: function (res) {
                 console.log(res)
                 if (res.status) {
-                    // return
-                    window.location.replace(`admin.html?username=${res.data.username}&password=${res.data.password}&nama=${res.data.nama}$id=${res.data.id}`)
+                    if(res.data.tipe == "Petugas Admin"){
+                        window.location.replace(`admin.html?username=${res.data.username}&password=${res.data.password}&nama=${res.data.nama}&id=${res.data.id_petugas}`)
+                    } else {
+                        window.location.replace(`petugas.html?username=${res.data.username}&password=${res.data.password}&nama=${res.data.nama}&id=${res.data.id_petugas}`)
+                    }
                 } else {
                     alert('Username / password salah')
                 }

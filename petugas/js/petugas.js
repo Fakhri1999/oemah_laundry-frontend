@@ -1,3 +1,22 @@
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = window.location.search.substring(1),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+  }
+};
+
+namaAdmin = getUrlParameter('nama')
+usernameAdmin = getUrlParameter('username')
+passwordAdmin = getUrlParameter('password')
+idAdmin = getUrlParameter('id')
 var dataPemesanan = '';
 
 String.prototype.toProperCase = function () {
@@ -9,8 +28,7 @@ function getPemesanan(){
     url: 'http://localhost/oemah_laundry-backend/api/pemesanan',
     type: 'get',
     data: {
-      //ini harusnya ngambil dari data setelah login
-      'petugas': 'ilham'
+      'petugas': namaAdmin
     },
     success: function(dataObject){
       $('#list-pemesanan').html('');
@@ -78,7 +96,7 @@ $(document).on('click', '#pemesanan', function(){
       //diubah ke default
       } else if(dataPemesanan[2] == ''){
         //nama data petugasnya pake default
-        append += `<button  id="btn-ambil" data-id="${dataPemesanan[0]}" data-petugas="1" class="ui-btn ui-corner-all">Ambil Orderan Laundry</button>`
+        append += `<button  id="btn-ambil" data-id="${dataPemesanan[0]}" data-petugas="${idAdmin}" class="ui-btn ui-corner-all">Ambil Orderan Laundry</button>`
       }
       $('#detail-pemesanan').append(append);
     }
@@ -127,3 +145,7 @@ $(document).on('click', '#btn-ambil', function(event){
     }
   });
 });
+
+$(document).on('click', '#keluar', function(){
+  window.location.replace('index.html')
+})
