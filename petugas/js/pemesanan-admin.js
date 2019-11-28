@@ -1,11 +1,15 @@
 String.prototype.toProperCase = function () {
-  return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  return this.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
 }
 
 let dataPemesanan;
 $(document).ready(function () {
+  baseURL = "https://oemah-laundry.herokuapp.com/"
+  let link = baseURL + "Pemesanan"
   $.ajax({
-    url: 'http://localhost/oemah_laundry-backend/Pemesanan',
+    url: link,
     type: 'get',
     success: function (res) {
       console.log(res.data)
@@ -26,12 +30,12 @@ $(document).ready(function () {
     }
   })
 
-  $(document).on('click', '#pemesanan',function() {
+  $(document).on('click', '#pemesanan', function () {
     let id = $(this).data('id')
     console.log(id)
     let append = ''
     dataPemesanan.forEach(e => {
-      if(e.id_pemesanan == id){
+      if (e.id_pemesanan == id) {
         $('#detail-pemesanan').empty()
         append += `<table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-stroke">
         <thead><tr><th><b>Nama Pelanggan : </b></th><td>${e.nama_pelanggan.toProperCase()}</td></tr></thead>
@@ -45,9 +49,6 @@ $(document).ready(function () {
         <tr><td><b>Status : </b></td><td>${e.status}</td></tr></tbody></table>`
       }
     });
-    // console.log($('#detail-pemesanan'))
     $('#detail-pemesanan').append(append).trigger('create')
   })
-
-  // $('#datetime').mobiscroll().datetime();
 })

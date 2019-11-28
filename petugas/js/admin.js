@@ -1,3 +1,4 @@
+baseURL = "https://oemah-laundry.herokuapp.com/"
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
@@ -49,8 +50,9 @@ var Application = {
     },
 
     initShowAdm: function () {
+        let link = baseURL + "Petugas"
         $.ajax({
-            url: 'http://localhost/oemah_laundry-backend/Petugas',
+            url: link,
             type: 'get',
             success: function (res) {
                 var dataObject = res.data;
@@ -85,12 +87,13 @@ var Application = {
     },
 
     initInsertAdm: function () {
+        let link = baseURL + "Petugas";
         var nama = $('#nama_pet').val();
         var username = $('#username_pet').val();
         var password = $('#pass_pet').val();
         var tipe = $('#tipe-petugas :selected').val();
         $.ajax({
-            url: 'http://localhost/oemah_laundry-backend/Petugas',
+            url: link,
             type: 'post',
             data: {
                 "nama": nama,
@@ -120,8 +123,9 @@ var Application = {
     },
 
     initShowCuci: function () {
+        let link = baseURL + "BarangCucian";
         $.ajax({
-            url: 'http://localhost/oemah_laundry-backend/BarangCucian',
+            url: link,
             type: 'get',
             success: function (res) {
                 var dataObject = res.data;
@@ -159,8 +163,9 @@ var Application = {
         var barang = $('#nama_barang').val();
         var harga = $('#harga_barang').val();
         var lama = $('#lama_barang').val();
+        let link = baseURL + "BarangCucian";
         $.ajax({
-            url: 'http://localhost/oemah_laundry-backend/BarangCucian',
+            url: link,
             type: 'post',
             data: {
                 "barang": barang,

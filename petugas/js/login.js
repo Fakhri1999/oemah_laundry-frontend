@@ -1,3 +1,4 @@
+baseURL = "https://oemah-laundry.herokuapp.com/"
 var Application = {
     initApplication: function () {
         $(window).load('pageinit', '#page-login', function () {
@@ -9,20 +10,21 @@ var Application = {
     },
 
     initLogin: function () {
+        let link = baseURL + "Petugas/login"
         $.ajax({
-            url: 'http://localhost/oemah_laundry-backend/Petugas/login',
+            url: link,
             type: 'post',
             data: {
                 'username': $('#username').val(),
                 'password': $('#password').val()
             },
-            beforeSend:function(){
+            beforeSend: function () {
                 console.log($('#username').val())
             },
             success: function (res) {
                 console.log(res)
                 if (res.status) {
-                    if(res.data.tipe == "Petugas Admin"){
+                    if (res.data.tipe == "Petugas Admin") {
                         window.location.replace(`admin.html?username=${res.data.username}&password=${res.data.password}&nama=${res.data.nama}&id=${res.data.id_petugas}`)
                     } else {
                         window.location.replace(`petugas.html?username=${res.data.username}&password=${res.data.password}&nama=${res.data.nama}&id=${res.data.id_petugas}`)

@@ -1,15 +1,16 @@
+baseURL = "https://oemah-laundry.herokuapp.com/"
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
-      sURLVariables = sPageURL.split('&'),
-      sParameterName,
-      i;
+    sURLVariables = sPageURL.split('&'),
+    sParameterName,
+    i;
 
   for (i = 0; i < sURLVariables.length; i++) {
-      sParameterName = sURLVariables[i].split('=');
+    sParameterName = sURLVariables[i].split('=');
 
-      if (sParameterName[0] === sParam) {
-          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-      }
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+    }
   }
 };
 
@@ -20,30 +21,33 @@ idAdmin = getUrlParameter('id')
 var dataPemesanan = '';
 
 String.prototype.toProperCase = function () {
-  return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  return this.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
 };
 
-function getPemesanan(){
+function getPemesanan() {
+  let link = baseURL + "api/pemesanan"
   $.ajax({
-    url: 'http://localhost/oemah_laundry-backend/api/pemesanan',
+    url: link,
     type: 'get',
     data: {
       'petugas': namaAdmin
     },
-    success: function(dataObject){
+    success: function (dataObject) {
       $('#list-pemesanan').html('');
       dataPemesanan = dataObject.data;
       var append = '';
       dataPemesanan.forEach(e => {
         console.log(e);
-        let tes = Object.keys(e).map((val)=>e[val]).join(';')
+        let tes = Object.keys(e).map((val) => e[val]).join(';')
         append += `<li><a href="#page-two" id="pemesanan" data-id="${e.id_pemesanan}" data-lengkap="${btoa(tes)}">
         <input type="hidden" value="${btoa(tes)}" id="lengkap">
         <h2>${e.nama_pelanggan.toProperCase()}</h2>
         <p><i>${e.tanggal_masuk}</i></p>`
         if (e.status == "Selesai") {
           append += `<p class="success italic">Selesai</p></a></li>`
-        } else if(e.status == "Belum Diproses"){
+        } else if (e.status == "Belum Diproses") {
           append += `<p class="danger italic">Belum Diproes</p></a></li>`
         } else {
           append += `<p class="warning italic">${e.status}</p></a></li>`
@@ -55,20 +59,20 @@ function getPemesanan(){
   });
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
   getPemesanan();
 });
 
-$(document).on('click', '#pemesanan', function(){
+$(document).on('click', '#pemesanan', function () {
   dataPemesanan = atob($(this).data('lengkap')).split(';');
-  // console.log(dataPemesanan)
+  let link = baseURL + "api/Rincian"
   $.ajax({
-    url: 'http://localhost/oemah_laundry-backend/api/Rincian',
+    url: link,
     type: 'get',
     data: {
       'id': $(this).data('id')
     },
-    success: function(dataObject){
+    success: function (dataObject) {
       dataObject = dataObject.data;
       console.log(dataPemesanan);
       // return
@@ -90,11 +94,11 @@ $(document).on('click', '#pemesanan', function(){
         <td>${e.harga}</td>
         </tr>`
       })
-      append+=`</tbody></table></div>`
+      append += `</tbody></table></div>`
       if (dataPemesanan[6] == "Sedang Diproses") {
         append += `<button  id="btn-selesai" data-id="${dataPemesanan[0]}" class="ui-btn ui-corner-all">Selesaikan Laundry</button>`
-      //diubah ke default
-      } else if(dataPemesanan[2] == ''){
+        //diubah ke default
+      } else if (dataPemesanan[2] == '') {
         //nama data petugasnya pake default
         append += `<button  id="btn-ambil" data-id="${dataPemesanan[0]}" data-petugas="${idAdmin}" class="ui-btn ui-corner-all">Ambil Orderan Laundry</button>`
       }
@@ -103,32 +107,34 @@ $(document).on('click', '#pemesanan', function(){
   });
 });
 
-$(document).on('click', '#btn-selesai', function(){
+$(document).on('click', '#btn-selesai', function () {
   var temp = $(this).data('id');
+  let link = baseURL + "api/pemesanan"
   $.ajax({
-    url: 'http://localhost/oemah_laundry-backend/api/pemesanan',
+    url: link,
     type: 'put',
     data: {
       'id': temp,
       'status': 'Selesai'
     },
-    success:function(){
+    success: function () {
       getPemesanan();
       window.location.replace('#page-one');
     },
-    error: function(){
+    error: function () {
       console.log(temp);
     }
   });
 });
 
-$(document).on('click', '#btn-ambil', function(event){
+$(document).on('click', '#btn-ambil', function (event) {
   event.preventDefault()
   var temp = $(this).data('id');
   //ini harus diubah ke id petugas nya
   var temp2 = $(this).data('petugas');
+  let link = baseURL + "api/pemesanan"
   $.ajax({
-    url: 'http://localhost/oemah_laundry-backend/api/pemesanan',
+    url: link,
     type: 'put',
     "content-type": "application/json; charset=utf-8",
     data: {
@@ -136,16 +142,16 @@ $(document).on('click', '#btn-ambil', function(event){
       'status': 'Sedang Diproses',
       'id_petugas': temp2
     },
-    success:function(){
+    success: function () {
       getPemesanan();
       window.location.replace('#page-one');
     },
-    error: function(){
+    error: function () {
       console.log(temp2);
     }
   });
 });
 
-$(document).on('click', '#keluar', function(){
+$(document).on('click', '#keluar', function () {
   window.location.replace('index.html')
 })
