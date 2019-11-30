@@ -1,4 +1,5 @@
-baseURL = "https://oemah-laundry.herokuapp.com/";
+// baseURL = "https://oemah-laundry.herokuapp.com/";
+baseURL = "http://localhost/oemah_laundry-backend/";
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
     sURLVariables = sPageURL.split("&"),
@@ -135,7 +136,7 @@ $(document).ready(function() {
     let link = baseURL + "api/pemesanan";
     $.ajax({
       url: link,
-      type: "put",
+      type: "PUT",
       data: {
         id: temp,
         status: "Selesai"
@@ -177,6 +178,6 @@ $(document).ready(function() {
 
   $(document).on("click", "#keluar", function() {
     localStorage.clear();
-    window.location.replace("./index.html");
+    window.location.href = "./index.html";
   });
 });

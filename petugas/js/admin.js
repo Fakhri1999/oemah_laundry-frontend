@@ -21,11 +21,12 @@ passwordAdmin = getUrlParameter("password");
 idAdmin = getUrlParameter("id");
 var Application = {
   initApplication: function() {
-    $(window).load("pageinit", "#page-admin", function() {
+    $(window).load("pageinit", "#page-home", function() {
       $("#judul-nama-admin").html(namaAdmin);
-      // console.log(namaAdmin)
       Application.initShowAdm();
+      Application.initShowCuci();
     });
+    $(document).on("click", "#ke-page-admin", function() {});
     $(document).on("click", "#detail-admin", function() {
       var id_admin = $(this).data("temp");
       Application.initShowDetailAdm(id_admin);
@@ -33,9 +34,7 @@ var Application = {
     $(document).on("click", "#submit-petugas", function() {
       Application.initInsertAdm();
     });
-    $(window).load("pageinit", "#page-cucian", function() {
-      Application.initShowCuci();
-    });
+    $(window).on("click", "#ke-page-cucian", function() {});
     $(document).on("click", "#detail-cucian", function() {
       var id_cuci = $(this).data("temp");
       Application.initShowDetailCuci(id_cuci);
@@ -47,7 +46,7 @@ var Application = {
       $("#judul-nama-admin").html(namaAdmin);
     });
     $(document).on("click", "#keluar", function() {
-      window.location.replace("index.html");
+      window.location.href = "index.html";
     });
   },
 
@@ -57,10 +56,10 @@ var Application = {
       url: link,
       type: "get",
       beforeSend: function() {
-        $.mobile.loading("show", {
-          text: "Loading...",
-          textVisible: true
-        });
+        // $.mobile.loading("show", {
+        //   text: "Loading...",
+        //   textVisible: true
+        // });
       },
       success: function(res) {
         var dataObject = res.data;
@@ -80,7 +79,7 @@ var Application = {
         $("#list-admin").listview("refresh");
       },
       complete: function() {
-        $.mobile.loading("hide");
+        // $.mobile.loading("hide");
       }
     });
   },
