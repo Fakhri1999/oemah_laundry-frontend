@@ -1,5 +1,5 @@
-const base_url = "https://oemah-laundry.herokuapp.com/";
-// const base_url = "http://localhost/oemah_laundry-backend/";
+// const base_url = "https://oemah-laundry.herokuapp.com/";
+const base_url = "http://localhost/oemah_laundry-backend/";
 
 //-------------------------------- utility ----------------------------------------
 
