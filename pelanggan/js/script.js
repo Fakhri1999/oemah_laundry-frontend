@@ -1,10 +1,10 @@
-// const base_url = "https://oemah-laundry.herokuapp.com/";
-const base_url = "http://localhost/oemah_laundry-backend/";
+const base_url = "https://oemah-laundry.herokuapp.com/";
+// const base_url = "http://localhost/oemah_laundry-backend/";
 
 //-------------------------------- utility ----------------------------------------
 
 //panel swiper
-$(document).on("swiperight", function(e) {
+$(document).on("swiperight", function (e) {
   if ($(".ui-page-active").jqmData("panel") !== "open") {
     if (e.type === "swiperight") {
       $("#left-panel").panel("open");
@@ -12,31 +12,36 @@ $(document).on("swiperight", function(e) {
   }
 });
 
+//format output number
+function formatNumber(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 //navigation
 $("#nav-name").html(`Hai, <b><u>${localStorage.getItem("username")}</u></b> !`);
 
-$("#nav-home").on("click", function(e) {
+$("#nav-home").on("click", function (e) {
   e.preventDefault();
   window.location.replace("./home.html");
 });
-$("#nav-profile").on("click", function(e) {
+$("#nav-profile").on("click", function (e) {
   e.preventDefault();
   window.location.replace("./profile.html");
 });
-$("#nav-logout").on("click", function(e) {
+$("#nav-logout").on("click", function (e) {
   e.preventDefault();
   localStorage.clear();
   window.location.replace("./index.html");
 });
-$("#btn-back").on("click", function(event) {
+$("#btn-back").on("click", function (event) {
   window.location.replace("./profile.html");
 });
-$("#btn-detail-back").on("click", function(event) {
+$("#btn-detail-back").on("click", function (event) {
   window.location.replace("./home.html");
 });
 
 //tambah pesanan
-$("#tambah-pesanan").on("click", function() {
+$("#tambah-pesanan").on("click", function () {
   window.location.replace("./pesanan_tambah.html");
 });
 
@@ -44,7 +49,7 @@ $("#tambah-pesanan").on("click", function() {
 
 //check status login
 var check = {
-  authCheck: function() {
+  authCheck: function () {
     if (localStorage.getItem("status") == 0) {
       window.location.replace("./index.html");
     }
@@ -52,7 +57,7 @@ var check = {
 };
 
 //login process
-$("#form-login").submit(function(event) {
+$("#form-login").submit(function (event) {
   event.preventDefault();
   //input
   let username = $("input#username").val();
@@ -88,16 +93,16 @@ $("#form-login").submit(function(event) {
         username: username,
         password: pass
       },
-      beforeSend: function() {
+      beforeSend: function () {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function(data) {
+      success: function (data) {
         window.location.replace("./home.html");
       },
-      error: function(data) {
+      error: function (data) {
         switch (data.status) {
           case 404:
             h4.innerHTML = "Data pelanggan tidak ditemukan";
@@ -107,7 +112,7 @@ $("#form-login").submit(function(event) {
             break;
         }
       },
-      complete: function() {
+      complete: function () {
         $.mobile.loading("hide");
       }
     });
@@ -116,7 +121,7 @@ $("#form-login").submit(function(event) {
   }
 });
 
-$("#form-register").submit(function(event) {
+$("#form-register").submit(function (event) {
   event.preventDefault();
   //input
   let name = $("input#nama").val();
@@ -161,23 +166,28 @@ $("#form-register").submit(function(event) {
             telepon: "belum ada",
             alamat: "belum ada"
           },
-          beforeSend: function() {
+          beforeSend: function () {
             $.mobile.loading("show", {
               text: "Loading...",
               textVisible: true
             });
           },
-          success: function(data) {
-            window.location.replace("./home.html");
+          success: function (data) {
+            if (data.status) {
+              localStorage.setItem("__userdata", JSON.stringify(data.data));
+              window.location.replace("./home.html");
+            } else {
+              h4.innerHTML = data.message;
+            }
           },
-          error: function(data) {
+          error: function (data) {
             switch (data.status) {
               case 406:
                 h4.innerHTML = "Pendaftaran gagal";
                 break;
             }
           },
-          complete: function() {
+          complete: function () {
             $.mobile.loading("hide");
           }
         });
@@ -192,12 +202,12 @@ $("#form-register").submit(function(event) {
   }
 });
 
-$("#link-register").on("click", function(event) {
+$("#link-register").on("click", function (event) {
   event.preventDefault();
   window.location.replace("./register.html");
 });
 
-$("#link-login").on("click", function(event) {
+$("#link-login").on("click", function (event) {
   event.preventDefault();
   window.location.replace("./index.html");
 });
@@ -206,7 +216,7 @@ $("#link-login").on("click", function(event) {
 localStorage.setItem("pesanan", 1);
 
 //tambah barang cucian
-$("#btn-tambah-barang").on("click", async function(event) {
+$("#btn-tambah-barang").on("click", async function (event) {
   event.preventDefault();
   localStorage.setItem(
     "pesanan",
@@ -239,10 +249,10 @@ $("#btn-tambah-barang").on("click", async function(event) {
 
   let options_str = "";
   let options = pilihan;
-  options.forEach(function(opt) {
+  options.forEach(function (opt) {
     options_str += '<option value="' + opt + '">' + opt + "</option>";
-	});
-	
+  });
+
   //joining all node togethaaa
   selectList.innerHTML = options_str;
   block1.appendChild(selectList);
@@ -250,12 +260,12 @@ $("#btn-tambah-barang").on("click", async function(event) {
   block2.appendChild(divInput);
   block_container.appendChild(block1);
   block_container.appendChild(block2);
-	container.appendChild(block_container);
+  container.appendChild(block_container);
   $(`#${selectList.id}`).selectmenu();
 });
 
 //pesanan process
-$("#form-pesanan").submit(function(event) {
+$("#form-pesanan").submit(function (event) {
   event.preventDefault();
   let data = {};
   for (let i = 1; i <= parseInt(localStorage.getItem("pesanan")); i++) {
@@ -286,20 +296,20 @@ $("#form-pesanan").submit(function(event) {
       pesanan: data,
       tanggal_masuk: today
     },
-    beforeSend: function() {
+    beforeSend: function () {
       $.mobile.loading("show", {
         text: "Loading...",
         textVisible: true
       });
     },
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       window.location.replace("./home.html");
     },
-    error: function(data) {
+    error: function (data) {
       console.log(data);
     },
-    complete: function() {
+    complete: function () {
       $.mobile.loading("hide");
     }
   });
@@ -307,7 +317,7 @@ $("#form-pesanan").submit(function(event) {
 
 //load pesanan
 var pesanan = {
-  load: function() {
+  load: function () {
     let link = base_url + "pelanggan/pesanan";
     let userdata = JSON.parse(localStorage.getItem("__userdata"));
     $.ajax({
@@ -316,13 +326,14 @@ var pesanan = {
       data: {
         id: userdata.id_pelanggan
       },
-      beforeSend: function() {
+      beforeSend: function () {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function(dataObject) {
+      success: function (dataObject) {
+        console.log(dataObject)
         dataObject.data.forEach(element => {
           let list = `<li><a href="#page-two" id="pesanan-detail" data-id="${element.id_pemesanan}"><h4>Pesanan tanggal ${element.tanggal_masuk}</h4></a></li>`;
           $("#list-pesanan").append(list);
@@ -330,73 +341,92 @@ var pesanan = {
 
         $("#list-pesanan").listview("refresh");
       },
-      error: function() {
+      error: function () {
         let list = `<li><p>data pesanan tidak ditemukan</p></li>`;
         $("#list-pesanan").append(list);
         $("#list-pesanan").listview("refresh");
       },
-      complete: function() {
+      complete: function () {
         $.mobile.loading("hide");
       }
     });
   }
 };
 
-$(document).on("click", "#pesanan-detail", function() {
+$(document).on("click", "#pesanan-detail", function () {
   let link = base_url + "pelanggan/detail";
 
+  // window.location.replace('#page-two');
   let container = document.getElementById("detail-pesanan");
+  let id = $(this).data("id")
+  setTimeout(function () {
+    $.ajax({
+      url: link,
+      type: "get",
+      data: {
+        id: id
+      },
+      beforeSend: function () {
+        $.mobile.loading("show", {
+          text: "Loading...",
+          textVisible: true
+        });
+      },
+      success: function (data) {
+        // console.log(data.data)
+        $("#detail-pesanan").empty();
+        data = data.data;
 
-  $.ajax({
-    url: link,
-    type: "get",
-    data: {
-      id: $(this).data("id")
-    },
-    success: function(data) {
-      $("#pemesanan-detail").empty();
-      data = data.data;
-
-      let div = document.createElement("div");
-      div.className = "ui-btn ui-corner-all ui-shadow";
-      let masuk = document.createElement("p");
-      masuk.innerHTML = `Tanggal masuk : ${data[0].tanggal_masuk}`;
-      let keluar = document.createElement("p");
-      keluar.innerHTML = `Tanggal keluar : ${data[0].tanggal_keluar}`;
-
-      div.appendChild(masuk);
-      div.appendChild(keluar);
-
-      container.appendChild(div);
-
-      data.forEach(function(item) {
-        console.log(item);
-        // component
         let div = document.createElement("div");
         div.className = "ui-btn ui-corner-all ui-shadow";
-        let nama = document.createElement("p");
-        nama.innerHTML = `Nama barang : ${item.nama}`;
-        let jumlah = document.createElement("p");
-        jumlah.innerHTML = `Jumlah : ${item.jumlah}`;
-        let harga = document.createElement("p");
-        harga.innerHTML = `Harga : ${item.harga}`;
+        let masuk = document.createElement("p");
+        masuk.innerHTML = `Tanggal masuk : ${data[0].tanggal_masuk}`;
+        let keluar = document.createElement("p");
+        keluar.innerHTML = `Tanggal keluar : ${data[0].tanggal_keluar}`;
+        let total_harga = document.createElement("p");
+        total_harga.innerHTML = `Total biaya : ${formatNumber(data[0].total_harga)}`;
         let status = document.createElement("p");
-        status.innerHTML = `Status cucian : ${item.status}`;
-
-        div.appendChild(nama);
-        div.appendChild(jumlah);
-        div.appendChild(harga);
+        status.innerHTML = `Status cucian : ${data[0].status}`;
+        div.appendChild(masuk);
+        div.appendChild(keluar);
+        div.appendChild(total_harga);
         div.appendChild(status);
 
         container.appendChild(div);
-      });
-    }
-  });
+
+        data.forEach(function (item) {
+          console.log(item);
+          // component
+          let div = document.createElement("div");
+          div.className = "ui-btn ui-corner-all ui-shadow";
+          let nama = document.createElement("p");
+          nama.innerHTML = `Nama barang : ${item.nama}`;
+          let jumlah = document.createElement("p");
+          jumlah.innerHTML = `Jumlah : ${item.jumlah}`;
+          let harga_barang = document.createElement("p");
+          harga_barang.innerHTML = `Harga per barang : ${formatNumber(item.harga_barang)}`;
+          let harga = document.createElement("p");
+          harga.innerHTML = `Harga : ${formatNumber(item.harga)}`;
+
+
+          div.appendChild(nama);
+          div.appendChild(jumlah);
+          div.appendChild(harga_barang);
+          div.appendChild(harga);
+
+          container.appendChild(div);
+        });
+      },
+      complete: function () {
+        $.mobile.loading("hide");
+      }
+    })
+  }, 500);
 });
 
 //------------------------------------ propil --------------------------------------
 let user = {
-  init: function() {
+  init: function () {
     let link = base_url + "pelanggan";
     $.ajax({
       url: link,
@@ -405,23 +435,23 @@ let user = {
       data: {
         id: localStorage.getItem("username")
       },
-      beforeSend: function() {
+      beforeSend: function () {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function(data) {
+      success: function (data) {
         localStorage.setItem("__userdata", JSON.stringify(data.data));
       },
-      error: function(data) {
+      error: function (data) {
         switch (data.status) {
           case 404:
             console.log("data tidak ditemukan");
             break;
         }
       },
-      complete: function() {
+      complete: function () {
         $.mobile.loading("hide");
       }
     });
@@ -429,7 +459,7 @@ let user = {
 };
 
 let profile = {
-  init: function() {
+  init: function () {
     let container = document.getElementById("profile-container");
     container.innerHTML = "";
 
@@ -441,13 +471,13 @@ let profile = {
       data: {
         id: localStorage.getItem("username")
       },
-      beforeSend: function() {
+      beforeSend: function () {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function(data) {
+      success: function (data) {
         for (let i = 1; i < Object.keys(data.data).length; i++) {
           localStorage.setItem("__userdata", JSON.stringify(data.data));
           if (Object.keys(data.data)[i] != "password") {
@@ -468,14 +498,14 @@ let profile = {
           }
         }
       },
-      error: function(data) {
+      error: function (data) {
         switch (data.status) {
           case 404:
             console.log("data tidak ditemukan");
             break;
         }
       },
-      complete: function() {
+      complete: function () {
         $.mobile.loading("hide");
       }
     });
@@ -483,7 +513,7 @@ let profile = {
 };
 
 let editProfile = {
-  init: function() {
+  init: function () {
     let userdata = JSON.parse(localStorage.getItem("__userdata"));
     $("input#p_nama").val(userdata.nama);
     $("input#p_username").val(userdata.username);
@@ -497,13 +527,13 @@ let editProfile = {
 };
 
 //button edit profile pressed
-$("#btn-edit-profile").on("click", function(event) {
+$("#btn-edit-profile").on("click", function (event) {
   event.preventDefault();
   window.location.replace("./edit_profile.html");
 });
 
 //update profil data
-$("#edit-profile").submit(function(event) {
+$("#edit-profile").submit(function (event) {
   // $('#btn-update-profile').on('click', function (event) {
   event.preventDefault();
 
@@ -523,7 +553,6 @@ $("#edit-profile").submit(function(event) {
   };
   let link = base_url + "pelanggan";
 
-  //sek error
   $.ajax({
     url: link,
     type: "put",
@@ -535,17 +564,21 @@ $("#edit-profile").submit(function(event) {
       telepon: telepon,
       alamat: alamat
     },
-    beforeSend: function() {
+    beforeSend: function () {
       $.mobile.loading("show", {
         text: "Loading...",
         textVisible: true
       });
     },
-    success: function() {
-      localStorage.setItem("__userdata", JSON.stringify(data));
-      window.location.replace("./profile.html");
+    success: function (res) {
+      if (res.status) {
+        localStorage.setItem("__userdata", JSON.stringify(data));
+        window.location.replace("./profile.html");
+      } else {
+        alert(res.message)
+      }
     },
-    complete: function() {
+    complete: function () {
       $.mobile.loading("hide");
     }
   });
