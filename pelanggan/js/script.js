@@ -1,5 +1,5 @@
-const base_url = "https://oemah-laundry.herokuapp.com/";
-// const base_url = "http://localhost/oemah_laundry-backend/";
+// const base_url = "https://oemah-laundry.herokuapp.com/";
+const base_url = "http://localhost/oemah_laundry-backend/";
 
 //-------------------------------- utility ----------------------------------------
 
@@ -233,6 +233,7 @@ $("#btn-tambah-barang").on("click", async function (event) {
 
   let input = document.createElement("input");
   input.type = "number";
+  input.className = "text";
   input.id = "jumlah-" + localStorage.getItem("pesanan");
   input.style = "text-align: center";
   input.placeholder = "Jumlah";
@@ -250,7 +251,7 @@ $("#btn-tambah-barang").on("click", async function (event) {
   let options_str = "";
   let options = pilihan;
   options.forEach(function (opt) {
-    options_str += '<option value="' + opt + '">' + opt + "</option>";
+    options_str += `<option value="${opt[0]}">${opt[0]}${opt[1]}</option>`;
   });
 
   //joining all node togethaaa
@@ -267,7 +268,7 @@ $("#btn-tambah-barang").on("click", async function (event) {
 //pesanan process
 $("#form-pesanan").submit(function (event) {
   event.preventDefault();
-  let data = {};
+  let data = {}
   for (let i = 1; i <= parseInt(localStorage.getItem("pesanan")); i++) {
     let label = $("#data-" + i).val();
     let jumlah = parseInt($("#jumlah-" + i).val());
@@ -278,6 +279,8 @@ $("#form-pesanan").submit(function (event) {
     }
   }
 
+  console.log(data)
+  return
   let today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
   var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
