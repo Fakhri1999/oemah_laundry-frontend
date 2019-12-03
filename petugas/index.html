@@ -26,12 +26,15 @@
       <h1>Login Petugas</h1>
     </div>
     <div role="main" class="ui-content">
-      <label for="text-basic">Username:</label>
-      <input type="text" name="text-basic" id="username" value="" placeholder="Masukkan username">
-      <label for="text-basic">Password:</label>
-      <input type="password" name="text-basic" id="password" value="" placeholder="Masukkan password">
-      <a style="background-color: #0071bc; color: #ffffff; " type="button" class="ui-btn ui-corner-all"
-        id="submit-login">Submit</a>
+      <form id="form-login">
+
+        <label for="text-basic">Username:</label>
+        <input type="text" name="text-basic" id="username" value="" placeholder="Masukkan username">
+        <label for="text-basic">Password:</label>
+        <input type="password" name="text-basic" id="password" value="" placeholder="Masukkan password">
+        <button style="background-color: #0071bc; color: #ffffff; " type="submit" class="ui-btn ui-corner-all"
+          id="submit-login">Submit</button>
+      </form>
 
     </div>
     <!-- <div style="bottom:0;" data-role="footer" data-position="fixed">
@@ -45,7 +48,9 @@
 
   <script src="./js/login.js"></script>
   <script>
-    Application.initApplication();
+    $(document).ready(function () {
+      Application.initApplication();
+    })
   </script>
 </body>
 

@@ -50,7 +50,8 @@
 		</div>
 		<div style="bottom:0;" data-role="footer" data-position="fixed">
 			<div class="center-wrapper">
-				<a style="width: 90%;" href="#page-add-admin" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
+				<a style="width: 90%;" href="#page-add-admin"
+					class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
 					Petugas</a>
 			</div>
 		</div>
@@ -77,7 +78,8 @@
 					<a style="background-color: #0071bc; color: #ffffff; " type="button" class="ui-btn ui-corner-all"
 						id="submit-petugas">Submit</a>
 			</form>
-			<a id="popup-petugas" href="#p_pet" data-rel="popup" hidden data-transition="pop" data-position-to="window">Basic
+			<a id="popup-petugas" href="#p_pet" data-rel="popup" hidden data-transition="pop"
+				data-position-to="window">Basic
 				Popup</a>
 			<div data-role="popup" id="p_pet">
 				<p>Data berhasil ditambahkan !!</p>
@@ -123,7 +125,8 @@
 		</div>
 		<div style="bottom:0;" data-role="footer" data-position="fixed">
 			<div class="center-wrapper">
-				<a style="width: 90%;" href="#page-add-cucian" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
+				<a style="width: 90%;" href="#page-add-cucian"
+					class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
 					Barang</a>
 			</div>
 		</div>
@@ -137,8 +140,8 @@
 		</div>
 		<div role="main" class="ui-content">
 			<p>Nama Barang : <input type="text" id="nama_barang" value="" required></p>
-			<p>Harga : <input type="number" id="harga_barang" value="" required></p>
-			<p>Lama : <input type="number" id="lama_barang" value="" style="width: 80%;" required> hari</p>
+			<p>Harga (rupiah): <input type="number" id="harga_barang" value="" required></p>
+			<p>Lama (hari) : <input type="number" id="lama_barang" value="" style="width: 80%;" required></p>
 			<div>
 				<button style="background-color: #0071bc; color: #ffffff; " type="submit" class="ui-btn ui-corner-all"
 					id="submit-cucian">Submit</button>
@@ -176,10 +179,16 @@
 
 		<script src="./js/admin.js"></script>
 		<script>
-			function preventBack() { window.history.forward(); }
+			function preventBack() {
+				window.history.forward();
+			}
 			setTimeout("preventBack()", 0);
-			window.onunload = function () { null };
-			Application.initApplication();
+			window.onunload = function () {
+				null
+			};
+			$(document).ready(function () {
+				Application.initApplication();
+			})
 		</script>
 </body>
 

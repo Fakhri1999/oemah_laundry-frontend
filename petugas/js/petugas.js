@@ -1,5 +1,5 @@
-// baseURL = "https://oemah-laundry.herokuapp.com/";
-baseURL = "http://localhost/oemah_laundry-backend/";
+baseURL = "https://oemah-laundry.herokuapp.com/";
+// baseURL = "http://localhost/oemah_laundry-backend/";
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
     sURLVariables = sPageURL.split("&"),
@@ -10,9 +10,9 @@ var getUrlParameter = function getUrlParameter(sParam) {
     sParameterName = sURLVariables[i].split("=");
 
     if (sParameterName[0] === sParam) {
-      return sParameterName[1] === undefined
-        ? true
-        : decodeURIComponent(sParameterName[1]);
+      return sParameterName[1] === undefined ?
+        true :
+        decodeURIComponent(sParameterName[1]);
     }
   }
 };
@@ -23,12 +23,12 @@ passwordAdmin = getUrlParameter("password");
 idAdmin = getUrlParameter("id");
 var dataPemesanan = "";
 
-String.prototype.toProperCase = function() {
-  return this.replace(/\w\S*/g, function(txt) {
+String.prototype.toProperCase = function () {
+  return this.replace(/\w\S*/g, function (txt) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 };
-$(document).ready(function() {
+$(document).ready(function () {
   function getPemesanan() {
     let link = baseURL + "api/pemesanan";
     $.ajax({
@@ -37,13 +37,13 @@ $(document).ready(function() {
       data: {
         petugas: namaAdmin
       },
-      beforeSend: function() {
+      beforeSend: function () {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function(dataObject) {
+      success: function (dataObject) {
         $("#list-pemesanan").html("");
         dataPemesanan = dataObject.data;
         var append = "";
@@ -67,7 +67,7 @@ $(document).ready(function() {
         $("#list-pemesanan").append(append);
         $("#list-pemesanan").listview("refresh");
       },
-      complete: function() {
+      complete: function () {
         $.mobile.loading("hide");
       }
     });
@@ -77,7 +77,7 @@ $(document).ready(function() {
   getPemesanan();
   // });
 
-  $(document).on("click", "#pemesanan", function() {
+  $(document).on("click", "#pemesanan", function () {
     window.location.href = '#page-two'
     dataPemesanan = atob($(this).data("lengkap")).split(";");
     let link = baseURL + "api/Rincian";
@@ -88,13 +88,13 @@ $(document).ready(function() {
       data: {
         id: $(this).data("id")
       },
-      beforeSend: function() {
+      beforeSend: function () {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function(dataObject) {
+      success: function (dataObject) {
         dataObject = dataObject.data;
         // console.log(dataPemesanan);
         // return
@@ -125,13 +125,13 @@ $(document).ready(function() {
         }
         $("#detail-pemesanan").append(append);
       },
-      complete: function() {
+      complete: function () {
         $.mobile.loading("hide");
       }
     });
   });
 
-  $(document).on("click", "#btn-selesai", function() {
+  $(document).on("click", "#btn-selesai", function () {
     var temp = $(this).data("id");
     let link = baseURL + "api/pemesanan";
     $.ajax({
@@ -141,17 +141,17 @@ $(document).ready(function() {
         id: temp,
         status: "Selesai"
       },
-      success: function() {
+      success: function () {
         getPemesanan();
         window.location.replace("#page-one");
       },
-      error: function() {
+      error: function () {
         console.log(temp);
       }
     });
   });
 
-  $(document).on("click", "#btn-ambil", function(event) {
+  $(document).on("click", "#btn-ambil", function (event) {
     event.preventDefault();
     var temp = $(this).data("id");
     //ini harus diubah ke id petugas nya
@@ -166,17 +166,17 @@ $(document).ready(function() {
         status: "Sedang Diproses",
         id_petugas: temp2
       },
-      success: function() {
+      success: function () {
         getPemesanan();
         window.location.replace("#page-one");
       },
-      error: function() {
+      error: function () {
         console.log(temp2);
       }
     });
   });
 
-  $(document).on("click", "#keluar", function() {
+  $(document).on("click", "#keluar", function () {
     localStorage.clear();
     window.location.href = "./index.html";
   });

@@ -410,8 +410,8 @@ $(document).on("click", "#pesanan-detail", function () {
 
 
           div.appendChild(nama);
-          div.appendChild(jumlah);
           div.appendChild(harga_barang);
+          div.appendChild(jumlah);
           div.appendChild(harga);
 
           container.appendChild(div);

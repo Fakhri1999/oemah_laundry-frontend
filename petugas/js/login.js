@@ -1,15 +1,22 @@
-baseURL = "https://oemah-laundry.herokuapp.com/";
+const baseURL = "https://oemah-laundry.herokuapp.com/";
+// const baseURL = "http://localhost/oemah_laundry-backend/";
+
 var Application = {
-  initApplication: function() {
-    $(window).load("pageinit", "#page-login", function() {
-      // Application.initShowAdm();
+  initApplication: function () {
+    $(window).load("pageinit", "#page-login", function () {
+      //   // Application.initShowAdm();
     });
-    $(document).on("click", "#submit-login", function() {
+    // $(document).on("submit", "#form-login", function () {
+    //   Application.initLogin();
+    // });
+    $('#form-login').submit(function (e) {
+      e.preventDefault();
       Application.initLogin();
-    });
+
+    })
   },
 
-  initLogin: function() {
+  initLogin: function () {
     let link = baseURL + "Petugas/login";
     $.ajax({
       url: link,
@@ -18,13 +25,13 @@ var Application = {
         username: $("#username").val(),
         password: $("#password").val()
       },
-      beforeSend: function() {
+      beforeSend: function () {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function(res) {
+      success: function (res) {
         console.log(res);
         if (res.status) {
           if (res.data.tipe == "Petugas Admin") {
@@ -40,7 +47,7 @@ var Application = {
           alert("Username / password salah");
         }
       },
-      complete: function() {
+      complete: function () {
         $.mobile.loading("hide");
       }
     });
