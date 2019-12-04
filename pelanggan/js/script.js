@@ -1,5 +1,5 @@
-// const base_url = "https://oemah-laundry.herokuapp.com/";
-const base_url = "http://localhost/oemah_laundry-backend/";
+const base_url = "https://oemah-laundry.herokuapp.com/";
+// const base_url = "http://localhost/oemah_laundry-backend/";
 
 //-------------------------------- utility ----------------------------------------
 
@@ -251,7 +251,7 @@ $("#btn-tambah-barang").on("click", async function (event) {
     let options_str = "";
     let options = pilihan;
     options.forEach(function (opt) {
-        options_str += `<option value="${opt[0]}">${opt[0]}${opt[1]}</option>`;
+        options_str += `<option value="${opt[0]}">${opt[0]}</option>`;
     });
 
     //joining all node togethaaa
@@ -264,6 +264,30 @@ $("#btn-tambah-barang").on("click", async function (event) {
     container.appendChild(block_container);
     $(`#${selectList.id}`).selectmenu();
 });
+
+$("#btn-harga").on('click', function () {
+    event.preventDefault();
+    let data = {}
+    for (let i = 1; i <= parseInt(localStorage.getItem("pesanan")); i++) {
+        let label = $("#data-" + i).val();
+        let jumlah = parseInt($("#jumlah-" + i).val());
+        if (data[label] != null) {
+            data[label] += jumlah;
+        } else {
+            data[label] = jumlah;
+        }
+    }
+    let result = 0
+    let container = document.getElementById('total-biaya')
+    for (let i = 0; i < Object.keys(data).length; i++) {
+        pilihan.forEach(function (val) {
+            if (val[0] == Object.keys(data)[i]) {
+                result += (val[1] * Object.values(data)[i])
+            }
+        })
+    }
+    container.value = `Rp. ${result}`
+})
 
 //pesanan process
 $("#form-pesanan").submit(function (event) {
@@ -280,7 +304,7 @@ $("#form-pesanan").submit(function (event) {
     }
 
     console.log(data)
-    return
+    // return
     let today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
