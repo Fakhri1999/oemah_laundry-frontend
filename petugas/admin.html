@@ -15,6 +15,13 @@
 		.center-wrapper * {
 			margin: 0 auto;
 		}
+
+		.center {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 60%;
+		}
 	</style>
 </head>
 
@@ -50,8 +57,7 @@
 		</div>
 		<div style="bottom:0;" data-role="footer" data-position="fixed">
 			<div class="center-wrapper">
-				<a style="width: 90%;" href="#page-add-admin"
-					class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
+				<a style="width: 90%;" href="#page-add-admin" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
 					Petugas</a>
 			</div>
 		</div>
@@ -78,8 +84,7 @@
 					<a style="background-color: #0071bc; color: #ffffff; " type="button" class="ui-btn ui-corner-all"
 						id="submit-petugas">Submit</a>
 			</form>
-			<a id="popup-petugas" href="#p_pet" data-rel="popup" hidden data-transition="pop"
-				data-position-to="window">Basic
+			<a id="popup-petugas" href="#p_pet" data-rel="popup" hidden data-transition="pop" data-position-to="window">Basic
 				Popup</a>
 			<div data-role="popup" id="p_pet">
 				<p>Data berhasil ditambahkan !!</p>
@@ -109,6 +114,49 @@
 				<tbody>
 				</tbody>
 			</table>
+			<!-- <a href="#page-update-admin" class="ui-btn ui-shadow ui-corner-all" id="update-admin" type="submit">Update</a> -->
+		</div>
+	</div>
+
+	<!--Halaman Update Admin-->
+	<div data-role="page" id="page-update-admin" data-theme="b">
+		<div data-role="header">
+			<a href="#page-detail-admin" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-left">Kembali</a>
+			<h1>Update Admin</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<form id="edit-profile-admin">
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<p class="center">Nama lengkap</p>
+					</div>
+					<div class="ui-block-b"><input style="text-align: center"
+								type="text" id="p_nama" placeholder="Nama Lengkap">
+					</div>
+				</div>
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<p class="center">Username</p>
+					</div>
+					<div class="ui-block-b">
+						<input style="text-align: center"
+								type="text" id="p_username" placeholder="Username">
+					</div>
+				</div>
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<p class="center">Tipe Petugas</p>
+					</div>
+					<div class="ui-block-b">
+						<select id="tipe-petugas-update" data-native-menu="false" required>
+						</select>
+					</div>
+				</div>
+				<div class="ui-grid-solo">
+					<a href="javascript:" class="ui-btn ui-shadow ui-corner-all" type="submit" id="submit-update-admin">Update</a>
+					<!-- <button id="btn-update-profile" class="ui-shadow ui-btn ui-corner-all" type="submit">Update</button> -->
+				</div>
+			</form>
 		</div>
 	</div>
 
@@ -125,8 +173,7 @@
 		</div>
 		<div style="bottom:0;" data-role="footer" data-position="fixed">
 			<div class="center-wrapper">
-				<a style="width: 90%;" href="#page-add-cucian"
-					class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
+				<a style="width: 90%;" href="#page-add-cucian" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-top">Tambah
 					Barang</a>
 			</div>
 		</div>

@@ -10,9 +10,9 @@ var getUrlParameter = function getUrlParameter(sParam) {
     sParameterName = sURLVariables[i].split("=");
 
     if (sParameterName[0] === sParam) {
-      return sParameterName[1] === undefined ?
-        true :
-        decodeURIComponent(sParameterName[1]);
+      return sParameterName[1] === undefined
+        ? true
+        : decodeURIComponent(sParameterName[1]);
     }
   }
 };
@@ -21,61 +21,64 @@ usernameAdmin = getUrlParameter("username");
 passwordAdmin = getUrlParameter("password");
 idAdmin = getUrlParameter("id");
 var Application = {
-  initApplication: async function () {
+  initApplication: async function() {
     // console.log('tes')
     // $.mobile.loading("show", {
     //   text: "Loading...",
     //   textVisible: true
     // });
     // $.mobile.loading("hide");
-    setTimeout(function () {}, 1000);
-    $(window).load("pageinit", "#page-home", function () {
+    setTimeout(function() {}, 1000);
+    $(window).load("pageinit", "#page-home", function() {
       $("#judul-nama-admin").html(namaAdmin);
       Application.initShowAdm();
       Application.initShowCuci();
 
-
       //   // }, 500);
     });
-    $(document).on("click", "#ke-page-admin", function () {});
-    $(document).on("click", "#detail-admin", function () {
-      var id_admin = $(this).data("temp");
-      Application.initShowDetailAdm(id_admin);
+    $(document).on("click", "#ke-page-admin", function() {});
+    $(document).on("click", "#detail-admin", function() {
+      var data = $(this).data("temp");
+      Application.initShowDetailAdm(data);
     });
-    $(document).on("click", "#submit-petugas", function () {
+    $(document).on("click", "#submit-petugas", function() {
       Application.initInsertAdm();
     });
-    $(document).on("click", "#ke-page-cucian", function () {
-
-    });
-    $(document).on("click", "#detail-cucian", function () {
+    $(document).on("click", "#ke-page-cucian", function() {});
+    $(document).on("click", "#detail-cucian", function() {
       var id_cuci = $(this).data("temp");
       Application.initShowDetailCuci(id_cuci);
     });
-    $(document).on("click", "#submit-cucian", function () {
+    $(document).on("click", "#submit-cucian", function() {
       Application.initInsertCuci();
     });
-    $(document).on("click", "#back-to-menu", function () {
+    $(document).on("click", "#back-to-menu", function() {
       $("#judul-nama-admin").html(namaAdmin);
     });
-    $(document).on("click", "#keluar", function () {
+    $(document).on("click", "#keluar", function() {
       window.location.href = "index.html";
+    });
+    $(document).on("click", "#update-admin", function() {
+      var data = $("#data-for-update-admin").val();
+      Application.initShowUpdateAdm(data);
+    });
+    $(document).on("click", "#submit-update-admin", function() {
+      Application.initUpdateAdm();
     });
   },
 
-  initShowAdm: function () {
+  initShowAdm: function() {
     let link = baseURL + "Petugas";
     $.ajax({
       url: link,
       type: "get",
-      beforeSend: function () {
+      beforeSend: function() {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function (res) {
-
+      success: function(res) {
         var dataObject = res.data;
         var appendList = "";
         $("#list-admin").html("");
@@ -90,19 +93,18 @@ var Application = {
                     </a></li>`;
         });
         $("#list-admin").append(appendList);
-        $('#page-admin').bind('pageinit', function () {
+        $.mobile.loading("hide");
+        $("#list-admin").listview("refresh");
+        $("#page-admin").bind("pageinit", function() {
           $("#list-admin").listview("refresh");
           $.mobile.loading("hide");
-        })
-        $("#list-admin").listview("refresh");
+        });
       },
-      complete: function () {
-        $.mobile.loading("hide");
-      }
+      complete: function() {}
     });
   },
 
-  initShowDetailAdm: function (data) {
+  initShowDetailAdm: function(data) {
     var dataObject = data.split(";");
     var appendDetail = "";
     var tbdy = $("#table-detailAdmin tbody");
@@ -112,11 +114,12 @@ var Application = {
         <td><b class="ui-table-cell-label">Nama</b>${dataObject[1]}</td>
         <td><b class="ui-table-cell-label">Username</b>${dataObject[2]}</td>
         <td><b class="ui-table-cell-label">Tipe Petugas</b>${dataObject[3]}</td>
+        <input type="hidden" value="${data}" id="data-for-update-admin">
         </tr>`;
     $("#table-detailAdmin").append(appendDetail);
   },
 
-  initInsertAdm: function () {
+  initInsertAdm: function() {
     let link = baseURL + "Petugas";
     var nama = $("#nama_pet").val();
     var username = $("#username_pet").val();
@@ -133,52 +136,110 @@ var Application = {
         usernameAdmin: usernameAdmin,
         passwordAdmin: passwordAdmin
       },
-      beforeSend: function () {
+      beforeSend: function() {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function (res) {
+      success: function(res) {
         // console.log(res)
         // return
         if (res.status) {
-          // Application.initShowAdm();
           $("#popup-petugas").click();
-          setTimeout(function () {
+          setTimeout(function() {
             $("#p_pet").popup("close");
           }, 2000);
-          setTimeout(function () {
+          setTimeout(function() {
             window.location.href = "#page-admin";
           }, 2800);
-          setTimeout(function () {
+          setTimeout(function() {
             window.location.reload();
           }, 3000);
         } else {
-          alert(res.message)
+          alert(res.message);
         }
       },
-      error: function () {
+      error: function() {
         alert("Field ada yang Kosong!!!");
       },
-      complete: function () {
+      complete: function() {
         $.mobile.loading("hide");
       }
     });
   },
 
-  initShowCuci: function () {
-    let link = baseURL + "BarangCucian";
+  initShowUpdateAdm: function(data){
+    let dataObject = data.split(';');
+    // console.log(dataObject)
+    $('#p_nama').val(dataObject[1])
+    $('#p_username').val(dataObject[2])
+    let pil = ['Petugas Admin', 'Petugas Cuci']
+    let append = ''
+    pil.forEach(e => {
+      if(e == dataObject[3]){
+        append += `<option value="${e}" selected>${e}</option>`
+      } else {
+        append += `<option value="${e}">${e}</option>`
+      }
+    });
+    $('#edit-profile-admin').append(`<input type="hidden" value="${data[0]}" id="id-update-profile">`)
+    $('#tipe-petugas-update').append(append).selectmenu('refresh')
+  },
+
+  initUpdateAdm: function() {
+    let id = $('#id-update-profile').val();
+    let nama = $("#p_nama").val();
+    let username = $("#p_username").val();
+    var tipe = $("#tipe-petugas-update :selected").val();
+    let link = baseURL + "Petugas";
+
     $.ajax({
       url: link,
-      type: "get",
-      beforeSend: function () {
+      type: "put",
+      data: {
+        id: id,
+        nama: nama,
+        username: username,
+        tipe : tipe,
+        usernameAdmin: usernameAdmin,
+        passwordAdmin: passwordAdmin
+      },
+      beforeSend: function() {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function (res) {
+      success: function(res) {
+        if (res.status) {
+          $.mobile.loading("hide");
+          setTimeout(function() {
+            window.location.href = "#page-admin";
+          }, 500);
+          setTimeout(function() {
+            window.location.reload();
+          }, 800);
+        } else {
+          alert(res.message);
+        }
+      },
+      // complete: function() {
+      // }
+    });
+  },
+  initShowCuci: function() {
+    let link = baseURL + "BarangCucian";
+    $.ajax({
+      url: link,
+      type: "get",
+      beforeSend: function() {
+        $.mobile.loading("show", {
+          text: "Loading...",
+          textVisible: true
+        });
+      },
+      success: function(res) {
         var dataObject = res.data;
         var appendList = "";
         $("#list-cucian").html("");
@@ -193,19 +254,18 @@ var Application = {
                     </a></li>`;
         });
         $("#list-cucian").append(appendList);
-        $('#page-cucian').bind('pageinit', function () {
+        $("#list-cucian").listview("refresh");
+        $.mobile.loading("hide");
+        $("#page-cucian").bind("pageinit", function() {
           $("#list-cucian").listview("refresh");
           $.mobile.loading("hide");
-        })
-        $("#list-cucian").listview("refresh");
+        });
       },
-      complete: function () {
-        $.mobile.loading("hide");
-      }
+      complete: function() {}
     });
   },
 
-  initShowDetailCuci: function (data) {
+  initShowDetailCuci: function(data) {
     var dataObject = data.split(";");
     var appendDetail = "";
     var tbdy = $("#table-detailCucian tbody");
@@ -219,7 +279,7 @@ var Application = {
     $("#table-detailCucian").append(appendDetail);
   },
 
-  initInsertCuci: function () {
+  initInsertCuci: function() {
     var barang = $("#nama_barang").val();
     var harga = $("#harga_barang").val();
     var lama = $("#lama_barang").val();
@@ -234,37 +294,36 @@ var Application = {
         usernameAdmin: usernameAdmin,
         passwordAdmin: passwordAdmin
       },
-      beforeSend: function () {
+      beforeSend: function() {
         $.mobile.loading("show", {
           text: "Loading...",
           textVisible: true
         });
       },
-      success: function (res) {
+      success: function(res) {
         // console.log(res)
         if (res.status) {
-
           $("#popup-cucian").click();
-          setTimeout(function () {
+          setTimeout(function() {
             $("#p_cuci").popup("close");
           }, 2000);
-          setTimeout(function () {
+          setTimeout(function() {
             window.location.href = "#page-cucian";
-            location.reload()
+            location.reload();
           }, 2800);
           // setTimeout(function () {
           // }, 2900);
         } else {
-          alert(res.message)
+          alert(res.message);
         }
         // $("#nama_barang").val("");
         // $("#harga_barang").val("");
         // $("#lama_barang").val("");
       },
-      error: function () {
+      error: function() {
         alert("Field ada yang Kosong!!!");
       },
-      complete: function () {
+      complete: function() {
         $.mobile.loading("hide");
       }
     });
