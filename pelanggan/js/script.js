@@ -251,7 +251,7 @@ $("#btn-tambah-barang").on("click", async function (event) {
     let options_str = "";
     let options = pilihan;
     options.forEach(function (opt) {
-        options_str += `<option value="${opt[0]}">${opt[0]}</option>`;
+        options_str += `<option value="${opt[0]}">${opt[0]} - ${opt[1]}</option>`;
     });
 
     //joining all node togethaaa
